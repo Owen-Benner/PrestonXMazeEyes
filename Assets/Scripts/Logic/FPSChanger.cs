@@ -26,12 +26,14 @@ public class FPSChanger : MonoBehaviour{
 
 	void Awake(){
 		//Make sure we're cool
+		//
 		if(FPSControllers == null){
 			Debug.LogError("FPSControllers is empty!!");
 			Application.Quit();
 		}
 
-		//init index
+		//Setup list
+		//
 		m_currIndex = 0;
 
 		//Disable all but one in scene
@@ -39,6 +41,10 @@ public class FPSChanger : MonoBehaviour{
 			go.SetActive(false);
 		}
 		FPSControllers[0].SetActive(true);
+
+		//Setup timer
+		//
+		m_switchTimer.SetTimer(SwitchTime);
 	}
 	
 	//Update is called once per frame
