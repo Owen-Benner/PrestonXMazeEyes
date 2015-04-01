@@ -42,17 +42,19 @@ public class Logger : MonoBehaviour {
 	//Unity callbacks
 	//
 
-	//Setup serializer and data stream
 	void Start(){
+		//Setup serializer and data stream
 		m_serializer = new XmlSerializer(typeof(PlayerDataContainer));
 		m_stream = new FileStream(XmlLogOutput, FileMode.Create);
 
+		//Setup data container
 		m_data = new PlayerDataContainer();
 
+		//Setup timer
 		logTimer = new Timer();
 	}
 
-	//Log our attached transform (position, rotation)
+	//Log whatever
 	void Update(){
 		if(logTimer.isDone){
 			UpdateData();
