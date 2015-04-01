@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Xml.Serialization;
-using System.IO;
+using System.Xml;
 
 //Logs to a file every fixed update
 //TODO
@@ -18,24 +17,27 @@ public class Logger : MonoBehaviour {
 	//Log timer interval
 	public float LogTimeInterval = .8f;
 
-	//Serializer and data stream
-	private XmlSerializer m_serializer;
-	private FileStream m_stream;
+	//XmlWriter
+	private XmlWriter m_writer;
 
-	//Holds data to be serialized
-	private PlayerDataContainer m_data;
-
+	//Timer
 	private Timer logTimer;
 
 	//
 	//Helper methods
 	//
 
-	//Save current relevant information so it can be serialized
-	private void UpdateData(){
-		m_data.position = transform.position;
-		m_data.rotation = transform.rotation.eulerAngles;
-		m_data.time = Time.time;
+	//Output current state to Xml
+	private void WriteData(){
+		//Writing this tick...
+		m_writer.WriteStartElement("tick");
+
+		m_writer.WriteElementString("pos", transform.position.ToString());
+		m_writer.WriteElementString("rot", transform.rotation.ToString());
+		m_writer.WriteElementString("time", Time.time.ToString());
+
+		//...done!
+		m_writer.WriteEndElement();
 	}
 
 	//
@@ -43,29 +45,34 @@ public class Logger : MonoBehaviour {
 	//
 
 	void Start(){
-		//Setup serializer and data stream
-		m_serializer = new XmlSerializer(typeof(PlayerDataContainer));
-		m_stream = new FileStream(XmlLogOutput, FileMode.Create);
-
-		//Setup data container
-		m_data = new PlayerDataContainer();
-
 		//Setup timer
 		logTimer = new Timer();
+
+		//Xml
+		//
+
+		//Setup XmlWriter
+		//XXX Will it exist elsewhere in this class with the using statement?
+		//XXX NO!!! >>>>:(((((
+		using(m_writer = XmlWriter.Create(XmlLogOutput)){
+			//Start out document
+			m_writer.WriteStartDocument();
+			m_writer.WriteStartElement("Test output");
+		}
 	}
 
 	//Log whatever
 	void Update(){
 		if(logTimer.isDone){
-			UpdateData();
-			m_serializer.Serialize(m_stream, m_data);
+			WriteData();
 			logTimer.SetTimer(LogTimeInterval);
 		}
 	}
 
+	//TODO exceptions/using statements
 	void OnDestroy(){
-		//Close stream and therefore write XML file
-		m_stream.Close();
+		m_writer.WriteEndElement();
+		m_writer.WriteEndDocument();
 	}
 }
 
