@@ -51,14 +51,14 @@ public class Logger : MonoBehaviour {
 		//Xml
 		//
 
-		//Setup XmlWriter
-		//XXX Will it exist elsewhere in this class with the using statement?
-		//XXX NO!!! >>>>:(((((
-		using(m_writer = XmlWriter.Create(XmlLogOutput)){
-			//Start out document
-			m_writer.WriteStartDocument();
-			m_writer.WriteStartElement("Test output");
-		}
+		//Setup XmlWriter with indenting enabled (uses hot C# syntax for Object Initializer)
+		//TODO This outputs bad xml, for some reason!!! TODO
+		//TODO Try/catch/finally
+		m_writer = XmlWriter.Create(XmlLogOutput, new XmlWriterSettings(){Indent = true});
+
+		//Start our document
+		m_writer.WriteStartDocument();
+		m_writer.WriteStartElement("Test output");
 	}
 
 	//Log whatever
@@ -71,8 +71,12 @@ public class Logger : MonoBehaviour {
 
 	//TODO exceptions/using statements
 	void OnDestroy(){
+		//Elements
 		m_writer.WriteEndElement();
 		m_writer.WriteEndDocument();
+
+		//Close file
+		m_writer.Close();
 	}
 }
 
