@@ -21,5 +21,8 @@ sysinfo.txt
 *.swp
 *.swo
 
+#temp xml outputs
+temp.xml
+
 #OSX things
 .DS_Store
