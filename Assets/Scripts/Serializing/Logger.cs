@@ -2,13 +2,9 @@
 using System.Collections;
 using System.Xml;
 
-//Logs to a file every fixed update
-//TODO
-//	Use a queue system:
-//		push updates to some master,
-//		it flushes every now and then
-//	Use xml
-//	Integrate with existing matlab workflow in Preston_Nav/tools/
+//Logs to a file a configurable number of seconds
+//What GO is subject to logging is settable, and
+//is probably done by FPSChanger
 public class Logger : MonoBehaviour {
 	//
 	//Highest level tag settings
@@ -67,7 +63,8 @@ public class Logger : MonoBehaviour {
 	//
 
 	//Called to start the recording of a trial
-	public void StartTrial(string camera, Vector2 destination, string landmark, GameObject trackme, Vector2 relOrigin){
+	public void StartTrial(string camera, Vector2 destination, string landmark,
+			GameObject trackme, Vector2 relOrigin){
 
 		//Setup local state
 		//
@@ -79,13 +76,29 @@ public class Logger : MonoBehaviour {
 		//
 		m_writer.WriteStartElement("trial");
 
-		m_writer.WriteAttributeString("camera", camera);
-		m_writer.WriteAttributeString("goalx", (goalDestination.x - relativeOrigin.x).ToString());
-		m_writer.WriteAttributeString("goaly", (goalDestination.y - relativeOrigin.y).ToString());
-		m_writer.WriteAttributeString("landmark", landmark);
-		m_writer.WriteAttributeString("pose", gameObjectToLog.transform.rotation.eulerAngles.y.ToString());
-		m_writer.WriteAttributeString("startx", (gameObjectToLog.transform.position.x - relativeOrigin.x).ToString());
-		m_writer.WriteAttributeString("starty", (gameObjectToLog.transform.position.y - relativeOrigin.y).ToString());
+		//Refer to an old log file for an idea
+		//of what each printed thing means
+		//
+		m_writer.WriteAttributeString("camera",
+				camera);
+
+		m_writer.WriteAttributeString("goalx",
+				(goalDestination.x - relativeOrigin.x).ToString());
+
+		m_writer.WriteAttributeString("goaly",
+				(goalDestination.y - relativeOrigin.y).ToString());
+
+		m_writer.WriteAttributeString("landmark",
+				landmark);
+
+		m_writer.WriteAttributeString("pose",
+				gameObjectToLog.transform.rotation.eulerAngles.y.ToString());
+
+		m_writer.WriteAttributeString("startx",
+				(gameObjectToLog.transform.position.x - relativeOrigin.x).ToString());
+
+		m_writer.WriteAttributeString("starty",
+				(gameObjectToLog.transform.position.y - relativeOrigin.y).ToString());
 
 		//Setup timer; other state
 		//
