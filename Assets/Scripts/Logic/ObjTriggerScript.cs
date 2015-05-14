@@ -4,11 +4,23 @@ using System.Collections;
 //Contains more convienient info about
 //spawn style prefabs
 public class ObjTriggerScript : MonoBehaviour{
+	//Inspector set int for which of the 4 spawns I am
+	public int SpawnNumber = -1;
+
+	//Time player can't input
+	public float NoInputTime = 3.0f;
+
+	//A timer
+	private Timer timer;
+	//Are we actively blocking input?
+	private bool active = false;
+
+	//Reference to main configuration script
 	private FPSChanger fps;
 
-	public float NoInputTime = 3.0f;
-	private Timer timer;
-	private bool active = false;
+	//
+	//Unity callbacks
+	//
 
 	void Awake(){
 		fps = GameObject.FindWithTag("Logic").GetComponent<FPSChanger>();
@@ -18,22 +30,20 @@ public class ObjTriggerScript : MonoBehaviour{
 	void Update(){
 		if(active && timer.isDone){
 			fps.EnableInput();
-			fps.CycleFPSController();
-			fps.ShowingImage = false;
-
+			fps.StopShowingImage();
 			active = false;
+
+			fps.CycleFPSController();
 		}
 	}
 
 	void OnTriggerEnter(Collider other){
-		//Stop input for x seconds
-		//Show Obj
-		//renable input
-		//Switch fps
-
-		fps.ShowingImage = true;
-		fps.DisableInput();
-		timer.SetTimer(NoInputTime);
+		if(!active){
+			fps.StartShowingImage(SpawnNumber);
+			fps.DisableInput();
+			timer.SetTimer(NoInputTime);
+			active = true;
+		}
 	}
 }
 

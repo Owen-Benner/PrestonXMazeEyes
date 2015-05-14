@@ -8,79 +8,145 @@ using System.Collections;
 //spawn style prefabs
 public class ConfigReader : MonoBehaviour{
 
-	public string FileToRead;
+	public static int NumEnvironments = 7;
+	public static int NumPlayerSpawns = 4;
+	public static int NumObjSpawns = 4;
+	public static int NumImages = NumEnvironments * NumObjSpawns;
+
+	public string FileToRead = "config.txt";
 
 	private FPSChanger fps;
 
-	void Awake(){
+	void Awake() {
 		fps = GetComponent<FPSChanger>();
 	}
 
-	void Start(){
-		Load(FileToRead);
+	void Start() {
 
-		// Handle any problems that might arise when reading the text
+		//Handle any problems that might arise when reading the text
 		try
 		{
-			string line;
-			string[] entries;
+			StreamReader reader = new StreamReader(FileToRead, Encoding.Default);
+			int linesToRead = 2;
 
-			// Create a new StreamReader, tell it which file to read and what encoding the file
-			// was saved as
-			StreamReader theReader = new StreamReader(FileToRead, Encoding.Default);
-
-			// Immediately clean up the reader after this block of code is done.
-			// You generally use the "using" statement for potentially memory-intensive objects
-			// instead of relying on garbage collection.
-			// (Do not confuse this with the using directive for namespace at the 
-			// beginning of a class!)
-			using (theReader)
+			using (reader)
 			{
-				line = theReader.ReadLine();
+				for(int i = 0; i < linesToRead; i++){
+					string line;
+					string[] entries;
 
-				if (line == null){
-					Debug.LogError("Error reading file!!");
-					return false;
-				}
+					//Read a line in
+					line = reader.ReadLine();
 
-				entries = line.Split(' ');
-				if (entries.Length == 7){
-					//Setup order of the environments
-					int j = 0;
-					foreach(string s in entries){
-						fps.WorldOrder[j++] = int.Parse(s);
+					//No lines???
+					if (line == null) {
+						Debug.LogError("Unable to read line " + i + " of config file.");
+						return;
+					}
+
+					switch(i){
+						case 0:
+							//
+							//Line 1: Environment order
+							//
+
+							//Get entires
+							entries = line.Split(' ');
+
+							//Validate entries
+							if (entries.Length != NumEnvironments) {
+								Debug.LogError("Bad input script length.");
+								return;
+							}
+
+							//Split into input ints
+							entries = line.Split(' ');
+							//Setup order of the environment
+							for(int j = 0; j < entries.Length; j++) {
+								fps.WorldOrder[j] = int.Parse(entries[j]);
+							}
+
+							break;
+						case 1:
+							//
+							//Line 2: Env->Spawn->image mapping
+							//
+
+							//Get entires
+							entries = line.Split(' ');
+
+							//Validate entries
+							if (entries.Length != NumImages) {
+								Debug.LogError("Bad input script length.");
+								return;
+							}
+
+							//Setup mapping of envs to image
+							//
+
+							//Envs
+							for(int j = 0; j < entries.Length; j++) {
+								int env = j / NumEnvironments;
+								int spawn  = j % NumPlayerSpawns;
+								fps.Images[env, spawn] = int.Parse(entries[j]);
+							}
+
+							break;
+						case 2:
+							//
+							//Line 3: For each env, which player spawn to use
+							//
+
+							//Get entires
+							entries = line.Split(' ');
+
+							//Validate entries
+							if (entries.Length != NumEnvironments) {
+								Debug.LogError("Bad input script length at line " + (i + 1));
+								return;
+							}
+
+							for(int j = 0; j < entries.Length; j++) {
+								fps.ChosenSpawns[j].PlayerSpawnIndex = int.Parse(entries[j]);
+							}
+
+							break;
+						case 3:
+							//
+							//Line 4: For each env, which obj spawn to use
+							//
+
+
+							//Get entires
+							entries = line.Split(' ');
+
+							//Validate entries
+							if (entries.Length != NumEnvironments) {
+								Debug.LogError("Bad input script length at line " + (i + 1));
+								return;
+							}
+
+							for(int j = 0; j < entries.Length; j++) {
+								fps.ChosenSpawns[j].ObjSpawnIndex = int.Parse(entries[j]);
+							}
+							break;
 					}
 				}
 
-				line = theReader.ReadLine();
-
-				if (line == null){
-					Debug.LogError("Error reading file!!");
-					return false;
-				}
-
-				entries = line.Split(' ');
-				if (entries.Length == 7){
-					//Setup mapping of envs to image
-					int j = 0;
-					foreach(string s in entries){
-						fps.Images[j++] = int.Parse(s);
-					}
-				}
-
-				// Done reading, close the reader
-				theReader.Close();
-				return true;
+				//Done reading, close the reader
+				//
+				reader.Close();
+				return;
 			}
 		}
 
-		// If anything broke in the try block, we throw an exception with information
-		// on what didn't work
+		//If anything else broke in the try block, we throw an exception with information
+		//on what didn't work
 		catch (Exception e)
 		{
 			Debug.LogError("Error reading file!!");
 			Debug.LogError(e);
-			return false;
+			return;
 		}
 	}
 
