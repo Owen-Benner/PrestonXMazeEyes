@@ -12,7 +12,7 @@ public class ObjTriggerScript : MonoBehaviour{
 
 	//A timer
 	private Timer timer;
-	//Are we actively blocking input?
+	//Are we actively blocking input and showing the image?
 	private bool active = false;
 
 	//Reference to main configuration script

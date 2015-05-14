@@ -1,4 +1,10 @@
-0 1 2 3 4 5 6
+6 1 2 3 4 0 5
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27
 0 1 2 3 0 1 2
 0 1 2 3 0 1 2
+
+
+Line 1 is order player moves through levels: [0 - 6], 7 entries, no repeats
+Line 2 maps and image file to one of the 28 places an object can spawn: [0 - 27], 27 entries, no repeats
+Line 3 chooses an player spawn for the env, order of envs given doesn't matter: [0 - 3], 7 entries
+Line 4 is like above, but for obj spawns: [0 - 3], 7 entries

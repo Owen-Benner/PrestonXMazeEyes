@@ -55,7 +55,7 @@ public class ConfigReader : MonoBehaviour{
 
 							//Validate entries
 							if (entries.Length != NumEnvironments) {
-								Debug.LogError("Bad input script length.");
+								Debug.LogError("Bad input script length at line " + (i + 1));
 								return;
 							}
 
@@ -77,7 +77,7 @@ public class ConfigReader : MonoBehaviour{
 
 							//Validate entries
 							if (entries.Length != NumImages) {
-								Debug.LogError("Bad input script length.");
+								Debug.LogError("Bad input script length at line " + (i + 1));
 								return;
 							}
 
@@ -86,9 +86,11 @@ public class ConfigReader : MonoBehaviour{
 
 							//Envs
 							for(int j = 0; j < entries.Length; j++) {
-								int env = j / NumEnvironments;
+								int env = j / NumPlayerSpawns;
 								int spawn  = j % NumPlayerSpawns;
-								fps.Images[env, spawn] = int.Parse(entries[j]);
+								int img = int.Parse(entries[j]);
+								//print(env + ", " + spawn + ", " + img);
+								fps.Images[env, spawn] = img;
 							}
 
 							break;
