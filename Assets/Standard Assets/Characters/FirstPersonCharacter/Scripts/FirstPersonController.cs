@@ -4,6 +4,8 @@ using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
 
+//Note: Modified to be able to reset rotation
+
 namespace UnityStandardAssets.Characters.FirstPerson
 {
     [RequireComponent(typeof (CharacterController))]
@@ -253,5 +255,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
         }
+
+		public void SetRotation(Quaternion rotation){
+			//m_MouseLook.OverrideRotation(rotation);
+			m_MouseLook.Init(transform , m_Camera.transform);
+		}
     }
 }

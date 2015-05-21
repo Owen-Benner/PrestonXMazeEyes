@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
+//Note: Modified to be able to set rotation
+
 namespace UnityStandardAssets.Characters.FirstPerson
 {
     [Serializable]
@@ -68,6 +70,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             return q;
         }
+
+		public void OverrideRotation(Quaternion q){
+			m_CharacterTargetRot = q;
+			m_CameraTargetRot = q;
+		}
 
     }
 }

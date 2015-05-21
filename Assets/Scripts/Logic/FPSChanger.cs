@@ -18,9 +18,9 @@ public class FPSChanger : MonoBehaviour{
 	public GameObject[] FPSControllers;
 
 	//Player Spawns
-	public GameObject[,] PlayerSpawns;
+	public GameObject[,] PlayerSpawns {get;set;}
 	//Object spawns
-	public GameObject[,] ObjSpawns;
+	public GameObject[,] ObjSpawns {get;set;}
 	//GO that holds the player and obj spawns
 	public GameObject[] SpawnObjects;
 
@@ -30,12 +30,18 @@ public class FPSChanger : MonoBehaviour{
 
 	//Which world will we deal with next?
 	//Index into this list is kept by m_currFPSIndex and updates every obj contact
-	public List<int> LearningWorldOrder;
-	public List<int> TestingWorldOrder;
+	public List<int> LearningWorldOrder {get;set;}
+	public List<int> TestingWorldOrder {get;set;}
 
 	//For a given entry, which Player and Object spawns are we using?
-	public List<WorldState> LearningSpawns;
-	public List<WorldState> TestingSpawns;
+	public List<WorldState> LearningSpawns {get;set;}
+	public List<WorldState> TestingSpawns {get;set;}
+
+	//Timer for max time player has to find obj during test phase
+	public float TestingTimeLimit = 20.0f;
+	private Timer testTimer;
+	public float PreImageShowTime = 3.0f;
+	private Timer imageTimer;
 
 	//
 	//Which <world, pspawn, objspawn> vector is relevant to us?
@@ -51,10 +57,11 @@ public class FPSChanger : MonoBehaviour{
 	//Image assets, per world, for objs
 	//Use this like Images[world, spawn]
 	//This should give back which img file to use
-	public int[,] Images;
+	public int[,] Images {get;set;}
 
 	//Are we showing the on screen image right now?
 	private bool imageEnabled = false;
+	private bool preImageEnabled = false;
 
 	//The image to be displayed on screen
 	private Texture imageToDraw;
@@ -77,23 +84,26 @@ public class FPSChanger : MonoBehaviour{
 	//Begin a trial
 	//
 	private void BeginLogging(){
-		GameObject cur_fps = CurrentGameState == GameStates.Learning ?
-			FPSControllers[LearningWorldOrder[m_currFPSIndex]] : FPSControllers[TestingWorldOrder[m_currFPSIndex]];
+		List<int> worldMapping;
+		List<WorldState> spawnMapping;
+		int playerSpawn;
 
-		GameObject cur_world = CurrentGameState == GameStates.Learning ?
-			Worlds[LearningWorldOrder[m_currFPSIndex]] : Worlds[TestingWorldOrder[m_currFPSIndex]];
+		spawnMapping = CurrentGameState == GameStates.Learning ? LearningSpawns : TestingSpawns;
+		worldMapping = CurrentGameState == GameStates.Learning ? LearningWorldOrder : TestingWorldOrder;
 
+		//Get GOs logger wants
+		GameObject cur_fps = FPSControllers[worldMapping[m_currFPSIndex]];
+		GameObject cur_world = Worlds[worldMapping[m_currFPSIndex]];
 		
 		//Get the chosen spawn index
-		int playerSpawn = LearningSpawns[LearningWorldOrder[m_currFPSIndex]].PlayerSpawnIndex;
+		playerSpawn = spawnMapping[m_currFPSIndex].PlayerSpawnIndex;
 
-		GameObject cur_dest = PlayerSpawns[LearningWorldOrder[m_currFPSIndex], playerSpawn];
+		GameObject cur_dest = ObjSpawns[worldMapping[m_currFPSIndex], playerSpawn];
 
 		logger.StartTrial("FPV", cur_dest.transform.position, "--", cur_fps, cur_world.transform.position);
 	}
 
 	//Sets fps controller to current index thing
-	//TODO
 	private void SetControlledFPS(){
 		//Enable new fps controller
 		//
@@ -110,16 +120,18 @@ public class FPSChanger : MonoBehaviour{
 		newGuy = FPSControllers[worldMapping[m_currFPSIndex]];
 
 		//Get the chosen spawn index
-		playerSpawn = spawnMapping[worldMapping[m_currFPSIndex]].PlayerSpawnIndex;
+		playerSpawn = spawnMapping[m_currFPSIndex].PlayerSpawnIndex;
 
 		//Move him to the correct spawn, with correct rot too
-		newGuy.transform.position = PlayerSpawns[worldMapping[m_currFPSIndex], playerSpawn].transform.position;
-		newGuy.transform.rotation = PlayerSpawns[worldMapping[m_currFPSIndex], playerSpawn].transform.rotation;
+		Transform spawnTransform = PlayerSpawns[worldMapping[m_currFPSIndex], playerSpawn].transform;
+		newGuy.transform.position = spawnTransform.position;
+		newGuy.transform.rotation = spawnTransform.rotation;
 
 		//Enable him
 		newGuy.SetActive(true);
 	}
 
+	//Learning
 	private void SetCurrentObj(bool active){
 		List<int> worldMapping;
 		List<WorldState> spawnMapping;
@@ -127,9 +139,10 @@ public class FPSChanger : MonoBehaviour{
 		worldMapping = CurrentGameState == GameStates.Learning ? LearningWorldOrder : TestingWorldOrder;
 		spawnMapping = CurrentGameState == GameStates.Learning ? LearningSpawns : TestingSpawns;
 
-		int objSpawn = spawnMapping[worldMapping[m_currFPSIndex]].ObjSpawnIndex;
+		int objSpawn = spawnMapping[m_currFPSIndex].ObjSpawnIndex;
 		ObjSpawns[worldMapping[m_currFPSIndex], objSpawn].SetActive(active);
 	}
+
 
 	//Get the current obj spawn index and enable it
 	private void EnableCurrentObj(){
@@ -139,6 +152,29 @@ public class FPSChanger : MonoBehaviour{
 	//Get the current obj spawn index and disable it
 	private void DisableCurrentObj(){
 		SetCurrentObj(false);
+	}
+
+	//Testing
+	private void EnableAllCurrentObj(){
+		foreach(GameObject obj in ObjSpawns){
+			obj.SetActive(true);
+		}
+	}
+
+	private void PreImageViewing(){
+		//Show image
+		//
+		int spawnNum = CurrentGameState == GameStates.Learning ? LearningSpawns[m_currFPSIndex].ObjSpawnIndex :
+			TestingSpawns[m_currFPSIndex].ObjSpawnIndex;
+		preImageEnabled = true;
+		StartShowingImage(spawnNum);
+
+		//Set image timer
+		imageTimer.SetTimer(PreImageShowTime);
+
+		//Disable input during this time
+		DisableInput();
+
 	}
 
 	//
@@ -203,6 +239,12 @@ public class FPSChanger : MonoBehaviour{
 				ObjSpawns[i, j++] = c.gameObject;
 			}
 		}
+
+		//Setup timers
+		//
+
+		imageTimer = new Timer();
+		testTimer = new Timer();
 	}
 
 	void Start(){
@@ -223,8 +265,33 @@ public class FPSChanger : MonoBehaviour{
 		//
 		logger.StartPhase("learning");
 
+		PreImageViewing();
+
 		//Begin logging
 		BeginLogging();
+	}
+
+	void Update(){
+		//If in testing phase, timeout after a while, also show images before trials
+		if(preImageEnabled){
+			if(imageTimer.isDone){
+				//Start new timer
+				testTimer.SetTimer(TestingTimeLimit);
+
+				//Stop showing image
+				imageEnabled = false;
+				preImageEnabled = false;
+				imageToDraw = null;
+
+				//Enable player input again
+				EnableInput();
+			}
+		}else if(CurrentGameState == GameStates.Testing){
+			if(testTimer.isDone){
+				//Move to next trial on timeout
+				CycleFPSController();
+			}
+		}
 	}
 
 	//If we want to show an image, we do!
@@ -240,8 +307,10 @@ public class FPSChanger : MonoBehaviour{
 	//
 
 	//Cycles to the next world in the list
-	//TODO Use the correct arrays for everything depending on learning/testing
 	public void CycleFPSController(){
+
+		//Stop current trial
+		logger.EndTrial();
 
 		switch(CurrentGameState){
 			case GameStates.Learning:
@@ -251,33 +320,44 @@ public class FPSChanger : MonoBehaviour{
 				//Get the current obj spawn index and disable it
 				DisableCurrentObj();
 
-				//
-				//Increment index and implement a circular list
+				//Increment index
 				//
 				m_currFPSIndex++;
-				if(m_currFPSIndex == FPSControllers.Length){
+				if(m_currFPSIndex == LearningWorldOrder.Count){
 					//Finishing the list is the condition to move to testing phase
 					CurrentGameState = GameStates.Testing;
+
 					//Include test phase into logs
+					logger.EndPhase();
 					logger.StartPhase("testing");
+
+					//Enable all obj colliders
+					EnableAllCurrentObj();
+
+					//Reset index
 					m_currFPSIndex = 0;
+
+					break;
 				}
+
+				//Enable correct obj collider
+				//
+				EnableCurrentObj();
+
 				break;
 			case GameStates.Testing:
 				//Disable current fpscontroller
 				FPSControllers[TestingWorldOrder[m_currFPSIndex]].SetActive(false);
 
-				//Get the current obj spawn index and disable it
-				DisableCurrentObj();
-
-				//
-				//Increment index and implement a circular list
+				//Increment index
 				//
 				m_currFPSIndex++;
-				if(m_currFPSIndex == FPSControllers.Length){
+				if(m_currFPSIndex == TestingWorldOrder.Count){
 					logger.EndTrial();
-					Application.Quit();
+					logger.EndPhase();
+					Application.Quit(); //Note: We stop here
 				}
+
 				break;
 		}
 
@@ -285,23 +365,29 @@ public class FPSChanger : MonoBehaviour{
 		//
 		SetControlledFPS();
 
-		//Enable correct obj collider
-		//
-		EnableCurrentObj();
+		//Show them the preimage
+		PreImageViewing();
 
-		//Update logger
-		//
-		logger.EndTrial();
+		//Start logging new trial
 		BeginLogging();
 	}
 
 	//Enables user input
+	bool once = false;
 	public void EnableInput(){
 		GameObject cur_fps = CurrentGameState == GameStates.Learning ?
 			FPSControllers[LearningWorldOrder[m_currFPSIndex]] : FPSControllers[TestingWorldOrder[m_currFPSIndex]];
 
-		((MonoBehaviour)cur_fps.GetComponent<
-		 UnityStandardAssets.Characters.FirstPerson.FirstPersonController>()).enabled = true;
+		UnityStandardAssets.Characters.FirstPerson.FirstPersonController fpsc = (cur_fps.GetComponent<
+				UnityStandardAssets.Characters.FirstPerson.FirstPersonController>());
+
+		//Reset the rotation ourselves because the mouselook script on the FPSC overrides it
+		if(once){
+			fpsc.SetRotation(fpsc.transform.rotation);
+		}
+
+		fpsc.enabled = true;
+		once = true;
 	}
 
 	//Disables user input
@@ -316,12 +402,10 @@ public class FPSChanger : MonoBehaviour{
 	//We should start showing the image referenced by
 	//spawnNum now!
 	public void StartShowingImage(int spawnNum){
-		//Only draw image during learning phase
-		if(CurrentGameState == GameStates.Learning){
-			imageEnabled = true;
-			string filename = "Stimuli/object_" + (Images[LearningWorldOrder[m_currFPSIndex], spawnNum]+1).ToString("000");
-			imageToDraw = Resources.Load(filename, typeof(Texture2D)) as Texture2D;
-		}
+		imageEnabled = true;
+		List<int> worldMapping = CurrentGameState == GameStates.Learning ? LearningWorldOrder : TestingWorldOrder;
+		string filename = "Stimuli/object_" + (Images[worldMapping[m_currFPSIndex], spawnNum]).ToString("000");
+		imageToDraw = Resources.Load(filename, typeof(Texture2D)) as Texture2D;
 	}
 
 	//We should stop showing whatever image now!

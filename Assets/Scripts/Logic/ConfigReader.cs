@@ -12,7 +12,7 @@ public class ConfigReader : MonoBehaviour{
 	private static int NumPlayerSpawns = 4;
 	private static int NumObjSpawns = 4;
 	private static int NumImages = NumEnvironments * NumObjSpawns;
-	private static int linesToRead = 2;
+	private static int linesToRead = 7;
 
 	public string FileToRead = "config.txt";
 
@@ -85,8 +85,6 @@ public class ConfigReader : MonoBehaviour{
 							//Get entires
 							entries = line.Split(' ');
 
-							//Split into input ints
-							entries = line.Split(' ');
 							//Setup order of the environment
 							for(int j = 0; j < entries.Length; j++) {
 								int worldIndex = int.Parse(entries[j]);
@@ -149,8 +147,6 @@ public class ConfigReader : MonoBehaviour{
 							//Get entires
 							entries = line.Split(' ');
 
-							//Split into input ints
-							entries = line.Split(' ');
 							//Setup order of the environment
 							for(int j = 0; j < entries.Length; j++) {
 								int worldIndex = int.Parse(entries[j]);

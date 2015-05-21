@@ -29,8 +29,10 @@ public class ObjTriggerScript : MonoBehaviour{
 
 	void Update(){
 		if(active && timer.isDone){
+			if(fps.CurrentGameState == FPSChanger.GameStates.Learning)
+				fps.StopShowingImage();
+
 			fps.EnableInput();
-			fps.StopShowingImage();
 			active = false;
 
 			fps.CycleFPSController();
@@ -39,7 +41,9 @@ public class ObjTriggerScript : MonoBehaviour{
 
 	void OnTriggerEnter(Collider other){
 		if(!active){
-			fps.StartShowingImage(SpawnNumber);
+			if(fps.CurrentGameState == FPSChanger.GameStates.Learning)
+				fps.StartShowingImage(SpawnNumber);
+
 			fps.DisableInput();
 			timer.SetTimer(NoInputTime);
 			active = true;
