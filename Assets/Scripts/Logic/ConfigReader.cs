@@ -8,10 +8,11 @@ using System.Collections;
 //spawn style prefabs
 public class ConfigReader : MonoBehaviour{
 
-	public static int NumEnvironments = 7;
-	public static int NumPlayerSpawns = 4;
-	public static int NumObjSpawns = 4;
-	public static int NumImages = NumEnvironments * NumObjSpawns;
+	private static int NumEnvironments = 7;
+	private static int NumPlayerSpawns = 4;
+	private static int NumObjSpawns = 4;
+	private static int NumImages = NumEnvironments * NumObjSpawns;
+	private static int linesToRead = 2;
 
 	public string FileToRead = "config.txt";
 
@@ -27,7 +28,6 @@ public class ConfigReader : MonoBehaviour{
 		try
 		{
 			StreamReader reader = new StreamReader(FileToRead, Encoding.Default);
-			int linesToRead = 2;
 
 			using (reader)
 			{
@@ -40,36 +40,14 @@ public class ConfigReader : MonoBehaviour{
 
 					//No lines???
 					if (line == null) {
-						Debug.LogError("Unable to read line " + i + " of config file.");
-						return;
+						Debug.LogError("Unable to read line " + i + " of config file... Out of lines!");
+						Application.Quit();
 					}
 
 					switch(i){
 						case 0:
 							//
-							//Line 1: Environment order
-							//
-
-							//Get entires
-							entries = line.Split(' ');
-
-							//Validate entries
-							if (entries.Length != NumEnvironments) {
-								Debug.LogError("Bad input script length at line " + (i + 1));
-								return;
-							}
-
-							//Split into input ints
-							entries = line.Split(' ');
-							//Setup order of the environment
-							for(int j = 0; j < entries.Length; j++) {
-								fps.WorldOrder[j] = int.Parse(entries[j]);
-							}
-
-							break;
-						case 1:
-							//
-							//Line 2: Env->Spawn->image mapping
+							//Line 1: Env->Spawn->image mapping
 							//
 
 							//Get entires
@@ -78,7 +56,7 @@ public class ConfigReader : MonoBehaviour{
 							//Validate entries
 							if (entries.Length != NumImages) {
 								Debug.LogError("Bad input script length at line " + (i + 1));
-								return;
+								Application.Quit();
 							}
 
 							//Setup mapping of envs to image
@@ -94,22 +72,46 @@ public class ConfigReader : MonoBehaviour{
 							}
 
 							break;
+
+							//
+							//Learning phase setup
+							//
+
+						case 1:
+							//
+							//Line 2: Environment order
+							//
+
+							//Get entires
+							entries = line.Split(' ');
+
+							//Split into input ints
+							entries = line.Split(' ');
+							//Setup order of the environment
+							for(int j = 0; j < entries.Length; j++) {
+								int worldIndex = int.Parse(entries[j]);
+								fps.LearningWorldOrder.Add(worldIndex);
+							}
+
+							break;
 						case 2:
 							//
-							//Line 3: For each env, which player spawn to use
+							//Line 3: For each entry, which player spawn to use
 							//
 
 							//Get entires
 							entries = line.Split(' ');
 
 							//Validate entries
-							if (entries.Length != NumEnvironments) {
+							if (entries.Length != fps.LearningWorldOrder.Count) {
 								Debug.LogError("Bad input script length at line " + (i + 1));
-								return;
+								Application.Quit();
 							}
 
 							for(int j = 0; j < entries.Length; j++) {
-								fps.ChosenSpawns[j].PlayerSpawnIndex = int.Parse(entries[j]);
+								WorldState ws = new WorldState();
+								ws.PlayerSpawnIndex = int.Parse(entries[j]);
+								fps.LearningSpawns.Add(ws);
 							}
 
 							break;
@@ -123,13 +125,79 @@ public class ConfigReader : MonoBehaviour{
 							entries = line.Split(' ');
 
 							//Validate entries
-							if (entries.Length != NumEnvironments) {
+							if (entries.Length != fps.LearningWorldOrder.Count) {
 								Debug.LogError("Bad input script length at line " + (i + 1));
-								return;
+								Application.Quit();
 							}
 
 							for(int j = 0; j < entries.Length; j++) {
-								fps.ChosenSpawns[j].ObjSpawnIndex = int.Parse(entries[j]);
+								//Note we modify the existing List because we already
+								//populated it
+								fps.LearningSpawns[j].ObjSpawnIndex = int.Parse(entries[j]);
+							}
+							break;
+
+							//
+							//Testing phase setup
+							//
+
+						case 4:
+							//
+							//Line 5: Testing environment order
+							//
+
+							//Get entires
+							entries = line.Split(' ');
+
+							//Split into input ints
+							entries = line.Split(' ');
+							//Setup order of the environment
+							for(int j = 0; j < entries.Length; j++) {
+								int worldIndex = int.Parse(entries[j]);
+								fps.TestingWorldOrder.Add(worldIndex);
+							}
+
+							break;
+						case 5:
+							//
+							//Line 6: For each entry, which player spawn to use
+							//
+
+							//Get entires
+							entries = line.Split(' ');
+
+							//Validate entries
+							if (entries.Length != fps.TestingWorldOrder.Count) {
+								Debug.LogError("Bad input script length at line " + (i + 1));
+								Application.Quit();
+							}
+
+							for(int j = 0; j < entries.Length; j++) {
+								WorldState ws = new WorldState();
+								ws.PlayerSpawnIndex = int.Parse(entries[j]);
+								fps.TestingSpawns.Add(ws);
+							}
+
+							break;
+						case 6:
+							//
+							//Line 7: For each env, which obj spawn to use
+							//
+
+
+							//Get entires
+							entries = line.Split(' ');
+
+							//Validate entries
+							if (entries.Length != fps.TestingWorldOrder.Count) {
+								Debug.LogError("Bad input script length at line " + (i + 1));
+								Application.Quit();
+							}
+
+							for(int j = 0; j < entries.Length; j++) {
+								//Note we modify the existing List because we already
+								//populated it
+								fps.TestingSpawns[j].ObjSpawnIndex = int.Parse(entries[j]);
 							}
 							break;
 					}
@@ -138,7 +206,7 @@ public class ConfigReader : MonoBehaviour{
 				//Done reading, close the reader
 				//
 				reader.Close();
-				return;
+				Application.Quit();
 			}
 		}
 
@@ -148,7 +216,7 @@ public class ConfigReader : MonoBehaviour{
 		{
 			Debug.LogError("Error reading file!!");
 			Debug.LogError(e);
-			return;
+			Application.Quit();
 		}
 	}
 

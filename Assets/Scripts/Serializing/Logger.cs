@@ -106,9 +106,18 @@ public class Logger : MonoBehaviour {
 		logTimer.SetTimer(LogTimeInterval);
 	}
 
+	//Ends a started trial
 	public void EndTrial(){
 		m_writer.WriteEndElement();
 		inTrial = false;
+	}
+
+	public void StartPhase(string phase){
+		m_writer.WriteStartElement(phase);
+	}
+	
+	public void EndPhase(){
+		m_writer.WriteEndElement();
 	}
 
 	//

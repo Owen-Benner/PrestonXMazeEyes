@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;//for List<T>
 
 //Responsible for giving player control to a fps prefab
 public class FPSChanger : MonoBehaviour{
 
+	//Are we in learning state or testing state?
+	//
+	public enum GameStates {Learning, Testing};
+	public GameStates CurrentGameState = GameStates.Learning;
 
 	//Parralel lists of our FPSControllers and Enviroments
 	//
@@ -12,8 +17,6 @@ public class FPSChanger : MonoBehaviour{
 	public GameObject[] Worlds;
 	public GameObject[] FPSControllers;
 
-	//Goals and spawns
-	//
 	//Player Spawns
 	public GameObject[,] PlayerSpawns;
 	//Object spawns
@@ -21,11 +24,22 @@ public class FPSChanger : MonoBehaviour{
 	//GO that holds the player and obj spawns
 	public GameObject[] SpawnObjects;
 
-	//For a given world, which spawn are we using?
-	public WorldState[] ChosenSpawns;
+	//
+	//Phase goals and spawns
+	//
 
-	//Maps m_currFPSIndex to an entry in Worlds and FPSControllers
-	public int[] WorldOrder;
+	//Which world will we deal with next?
+	//Index into this list is kept by m_currFPSIndex and updates every obj contact
+	public List<int> LearningWorldOrder;
+	public List<int> TestingWorldOrder;
+
+	//For a given entry, which Player and Object spawns are we using?
+	public List<WorldState> LearningSpawns;
+	public List<WorldState> TestingSpawns;
+
+	//
+	//Which <world, pspawn, objspawn> vector is relevant to us?
+	//
 
 	//Index of current active FPSController go
 	private int m_currFPSIndex;
@@ -63,42 +77,68 @@ public class FPSChanger : MonoBehaviour{
 	//Begin a trial
 	//
 	private void BeginLogging(){
-		logger.StartTrial("FPV", Vector2.zero, "--",
-				FPSControllers[WorldOrder[m_currFPSIndex]], Worlds[WorldOrder[m_currFPSIndex]].transform.position);
+		GameObject cur_fps = CurrentGameState == GameStates.Learning ?
+			FPSControllers[LearningWorldOrder[m_currFPSIndex]] : FPSControllers[TestingWorldOrder[m_currFPSIndex]];
+
+		GameObject cur_world = CurrentGameState == GameStates.Learning ?
+			Worlds[LearningWorldOrder[m_currFPSIndex]] : Worlds[TestingWorldOrder[m_currFPSIndex]];
+
+		
+		//Get the chosen spawn index
+		int playerSpawn = LearningSpawns[LearningWorldOrder[m_currFPSIndex]].PlayerSpawnIndex;
+
+		GameObject cur_dest = PlayerSpawns[LearningWorldOrder[m_currFPSIndex], playerSpawn];
+
+		logger.StartTrial("FPV", cur_dest.transform.position, "--", cur_fps, cur_world.transform.position);
 	}
 
 	//Sets fps controller to current index thing
-	private void ChangeFPSController(){
+	//TODO
+	private void SetControlledFPS(){
 		//Enable new fps controller
 		//
 
+		List<int> worldMapping;
+		List<WorldState> spawnMapping;
 		GameObject newGuy;
 		int playerSpawn;
 
+		worldMapping = CurrentGameState == GameStates.Learning ? LearningWorldOrder : TestingWorldOrder;
+		spawnMapping = CurrentGameState == GameStates.Learning ? LearningSpawns : TestingSpawns;
+
 		//Get the new fps controller's GO
-		newGuy = FPSControllers[WorldOrder[m_currFPSIndex]];
+		newGuy = FPSControllers[worldMapping[m_currFPSIndex]];
 
 		//Get the chosen spawn index
-		playerSpawn = ChosenSpawns[WorldOrder[m_currFPSIndex]].PlayerSpawnIndex;
+		playerSpawn = spawnMapping[worldMapping[m_currFPSIndex]].PlayerSpawnIndex;
 
 		//Move him to the correct spawn, with correct rot too
-		newGuy.transform.position = PlayerSpawns[WorldOrder[m_currFPSIndex], playerSpawn].transform.position;
-		newGuy.transform.rotation = PlayerSpawns[WorldOrder[m_currFPSIndex], playerSpawn].transform.rotation;
+		newGuy.transform.position = PlayerSpawns[worldMapping[m_currFPSIndex], playerSpawn].transform.position;
+		newGuy.transform.rotation = PlayerSpawns[worldMapping[m_currFPSIndex], playerSpawn].transform.rotation;
 
 		//Enable him
 		newGuy.SetActive(true);
 	}
 
-	private void DisableCurrentObj(){
-		//Get the current obj spawn index and disable it
-		int objSpawn = ChosenSpawns[WorldOrder[m_currFPSIndex]].ObjSpawnIndex;
-		ObjSpawns[WorldOrder[m_currFPSIndex], objSpawn].SetActive(false);
+	private void SetCurrentObj(bool active){
+		List<int> worldMapping;
+		List<WorldState> spawnMapping;
+
+		worldMapping = CurrentGameState == GameStates.Learning ? LearningWorldOrder : TestingWorldOrder;
+		spawnMapping = CurrentGameState == GameStates.Learning ? LearningSpawns : TestingSpawns;
+
+		int objSpawn = spawnMapping[worldMapping[m_currFPSIndex]].ObjSpawnIndex;
+		ObjSpawns[worldMapping[m_currFPSIndex], objSpawn].SetActive(active);
 	}
 
+	//Get the current obj spawn index and enable it
 	private void EnableCurrentObj(){
-		//Get the chosen spawn index and enable it
-		int newObjSpawn = ChosenSpawns[WorldOrder[m_currFPSIndex]].ObjSpawnIndex;
-		ObjSpawns[WorldOrder[m_currFPSIndex], newObjSpawn].SetActive(true);
+		SetCurrentObj(true);
+	}
+
+	//Get the current obj spawn index and disable it
+	private void DisableCurrentObj(){
+		SetCurrentObj(false);
 	}
 
 	//
@@ -118,14 +158,22 @@ public class FPSChanger : MonoBehaviour{
 			Application.Quit();
 		}
 
+		//Image file -> Obj Spawn Point
+		Images = new int[Worlds.Length, 4]; //4 is number of spawns points in each world
+
 		//Setup list
 		//
 		m_currFPSIndex = 0;
 
-		//Setup mapping
+		//Setup mappings
 		//
-		WorldOrder = new int[Worlds.Length];
-		Images = new int[Worlds.Length, 4]; //4 is number of spawns points in each world
+		LearningWorldOrder = new List<int>();
+		TestingWorldOrder = new List<int>();
+
+		//State for choosing spawns when world switching
+		LearningSpawns = new List<WorldState>();
+		TestingSpawns = new List<WorldState>();
+
 
 		//Setup logger
 		//
@@ -155,11 +203,6 @@ public class FPSChanger : MonoBehaviour{
 				ObjSpawns[i, j++] = c.gameObject;
 			}
 		}
-
-		//Setup state for choosing spawns when world switching
-		//
-		ChosenSpawns = new WorldState[Worlds.Length];
-
 	}
 
 	void Start(){
@@ -168,13 +211,17 @@ public class FPSChanger : MonoBehaviour{
 		foreach(GameObject go in FPSControllers){
 			go.SetActive(false);
 		}
-		FPSControllers[WorldOrder[m_currFPSIndex]].SetActive(true);
+		FPSControllers[LearningWorldOrder[m_currFPSIndex]].SetActive(true);
 
 		//Enable a player controller
-		ChangeFPSController();
+		SetControlledFPS();
 
 		//Enable a goal point
 		EnableCurrentObj();
+
+		//Include test phase into logs
+		//
+		logger.StartPhase("learning");
 
 		//Begin logging
 		BeginLogging();
@@ -193,24 +240,50 @@ public class FPSChanger : MonoBehaviour{
 	//
 
 	//Cycles to the next world in the list
+	//TODO Use the correct arrays for everything depending on learning/testing
 	public void CycleFPSController(){
 
-		//Disable current fpscontroller
-		FPSControllers[WorldOrder[m_currFPSIndex]].SetActive(false);
+		switch(CurrentGameState){
+			case GameStates.Learning:
+				//Disable current fpscontroller
+				FPSControllers[LearningWorldOrder[m_currFPSIndex]].SetActive(false);
 
-		//Get the current obj spawn index and disable it
-		DisableCurrentObj();
+				//Get the current obj spawn index and disable it
+				DisableCurrentObj();
 
-		//
-		//Increment index and implement a circular list
-		//
-		m_currFPSIndex++;
-		if(m_currFPSIndex == FPSControllers.Length)
-			m_currFPSIndex = 0;
+				//
+				//Increment index and implement a circular list
+				//
+				m_currFPSIndex++;
+				if(m_currFPSIndex == FPSControllers.Length){
+					//Finishing the list is the condition to move to testing phase
+					CurrentGameState = GameStates.Testing;
+					//Include test phase into logs
+					logger.StartPhase("testing");
+					m_currFPSIndex = 0;
+				}
+				break;
+			case GameStates.Testing:
+				//Disable current fpscontroller
+				FPSControllers[TestingWorldOrder[m_currFPSIndex]].SetActive(false);
+
+				//Get the current obj spawn index and disable it
+				DisableCurrentObj();
+
+				//
+				//Increment index and implement a circular list
+				//
+				m_currFPSIndex++;
+				if(m_currFPSIndex == FPSControllers.Length){
+					logger.EndTrial();
+					Application.Quit();
+				}
+				break;
+		}
 
 		//Enable new fps controller
 		//
-		ChangeFPSController();
+		SetControlledFPS();
 
 		//Enable correct obj collider
 		//
@@ -224,23 +297,31 @@ public class FPSChanger : MonoBehaviour{
 
 	//Enables user input
 	public void EnableInput(){
-		((MonoBehaviour)FPSControllers[WorldOrder[m_currFPSIndex]].
-		 GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>()).enabled = true;
+		GameObject cur_fps = CurrentGameState == GameStates.Learning ?
+			FPSControllers[LearningWorldOrder[m_currFPSIndex]] : FPSControllers[TestingWorldOrder[m_currFPSIndex]];
+
+		((MonoBehaviour)cur_fps.GetComponent<
+		 UnityStandardAssets.Characters.FirstPerson.FirstPersonController>()).enabled = true;
 	}
 
 	//Disables user input
 	public void DisableInput(){
-		((MonoBehaviour)FPSControllers[WorldOrder[m_currFPSIndex]].
-		 GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>()).enabled = false;
+		GameObject cur_fps = CurrentGameState == GameStates.Learning ?
+			FPSControllers[LearningWorldOrder[m_currFPSIndex]] : FPSControllers[TestingWorldOrder[m_currFPSIndex]];
+
+		((MonoBehaviour)cur_fps.GetComponent<
+		 UnityStandardAssets.Characters.FirstPerson.FirstPersonController>()).enabled = false;
 	}
 
 	//We should start showing the image referenced by
 	//spawnNum now!
-	bool once = true;
 	public void StartShowingImage(int spawnNum){
-		imageEnabled = true;
-		string filename = "Stimuli/object_" + (Images[WorldOrder[m_currFPSIndex], spawnNum]+1).ToString("000");
-		imageToDraw = Resources.Load(filename, typeof(Texture2D)) as Texture2D;
+		//Only draw image during learning phase
+		if(CurrentGameState == GameStates.Learning){
+			imageEnabled = true;
+			string filename = "Stimuli/object_" + (Images[LearningWorldOrder[m_currFPSIndex], spawnNum]+1).ToString("000");
+			imageToDraw = Resources.Load(filename, typeof(Texture2D)) as Texture2D;
+		}
 	}
 
 	//We should stop showing whatever image now!
