@@ -1,6 +1,9 @@
 -1
 subject name
 10.0
+10.0
+60.0
+20.0
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28
 4 0 0 0 2 3 4 5 6 0
 1 1 2 3 0 0 0 0 0 0
@@ -12,17 +15,20 @@ subject name
 
 Lines CANNOT have extra whitespace before or after them, so don't put any spaces after a line!
 GENERAL CONFIG
-Line 1 is the run number
+Line 1 is the run number: int
 Line 2 is the subject's name: string
-Line 3 is the size of the collision sphere's radius: decimal number
+Line 3 is the size of the collision sphere's radius: float, meters
+Line 4 is the player's movement speed: float
+Line 5 is the learning phase's time limit: float, seconds
+Line 6 is the testing phase's time limit: float, seconds
 IMAGE CONFIG
-Line 4 maps and image file to one of the 28 places an object can spawn: [1 - 28], 28 entries, no repeats
+Line 7 maps and image file to one of the 28 places an object can spawn: [1 - 28], 28 entries, no repeats
 LEARNING PHASE 
-Line 5 is order player moves through environments: [2 - 6], however many entries
-Line 6 chooses an player spawn for the env: [0 - 3], same number of entires as line 2
-Line 7 is like above, but for obj spawns: [0 - 3], same number of entries as line 2
+Line 8 is order player moves through environments: [2 - 6], however many entries
+Line 9 chooses an player spawn for the env: [0 - 3], same number of entires as line 2
+Line 10 is like above, but for obj spawns: [0 - 3], same number of entries as line 2
 TESTING PHASE
-Line 8 is order player moves through environments: [0 - 6], however many entries
-Line 9 chooses an player spawn for the env: [0 - 3], same number of entires as line 5
-Line 10 is like above, but for obj spawns: [0 - 3], same number of entries as line 5
+Line 11 is order player moves through environments: [0 - 6], however many entries
+Line 12 chooses an player spawn for the env: [0 - 3], same number of entires as line 5
+Line 13 is like above, but for obj spawns: [0 - 3], same number of entries as line 5
 

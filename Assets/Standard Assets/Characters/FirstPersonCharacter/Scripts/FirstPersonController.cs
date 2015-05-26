@@ -260,5 +260,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			//if(m_MouseLook != null)
 				//m_MouseLook.Init(transform , m_Camera.transform);
 		}
+
+		public void SetMovementSpeed(float speed){
+			m_WalkSpeed = speed;
+			m_RunSpeed = speed;
+		}
+
     }
 }

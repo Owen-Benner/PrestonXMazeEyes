@@ -54,6 +54,23 @@ public class ConfigReader : MonoBehaviour{
 					sc.radius = size;
 				}
 
+				//Read Movement Speed
+				line = reader.ReadLine();
+				float speed = float.Parse(line);
+				foreach(UnityStandardAssets.Characters.FirstPerson.FirstPersonController  fpsc in
+						Resources.FindObjectsOfTypeAll(typeof(UnityStandardAssets.Characters.FirstPerson.FirstPersonController))
+						as UnityStandardAssets.Characters.FirstPerson.FirstPersonController[]){
+					fpsc.SetMovementSpeed(speed);
+				}
+
+				//Read learning time limit
+				line = reader.ReadLine();
+				fps.LearningTimeLimit = float.Parse(line);
+
+				//Read testin time limit
+				line = reader.ReadLine();
+				fps.TestingTimeLimit = float.Parse(line);
+
 				//Read environment configuration
 				for(int i = 0; i < linesToRead; i++){
 					//Read a line in

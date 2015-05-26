@@ -38,6 +38,7 @@ public class FPSChanger : MonoBehaviour{
 	public List<WorldState> TestingSpawns {get;set;}
 
 	//Timer for max time player has to find obj during test phase
+	public float LearningTimeLimit = 60.0f;
 	public float TestingTimeLimit = 20.0f;
 	private Timer testTimer;
 	public float PreImageShowTime = 3.0f;
@@ -289,7 +290,9 @@ public class FPSChanger : MonoBehaviour{
 		if(preImageEnabled){
 			if(imageTimer.isDone){
 				//Start new timer
-				testTimer.SetTimer(TestingTimeLimit);
+				//
+				float time = CurrentGameState == GameStates.Learning ? LearningTimeLimit : TestingTimeLimit;
+				testTimer.SetTimer(time);
 
 				//Stop showing image
 				imageEnabled = false;
@@ -299,7 +302,7 @@ public class FPSChanger : MonoBehaviour{
 				//Enable player input again
 				EnableInput();
 			}
-		}else if(CurrentGameState == GameStates.Testing){
+		}else{
 			if(testTimer.isDone){
 				//Move to next trial on timeout
 				CycleFPSController();
