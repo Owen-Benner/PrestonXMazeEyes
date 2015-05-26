@@ -258,7 +258,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 		public void SetRotation(Quaternion rotation){
 			//m_MouseLook.OverrideRotation(rotation);
-			m_MouseLook.Init(transform , m_Camera.transform);
+			//m_MouseLook.Init(transform , m_Camera.transform); //TODO 
 		}
     }
 }

@@ -103,6 +103,16 @@ public class FPSChanger : MonoBehaviour{
 		logger.StartTrial("FPV", cur_dest.transform.position, "--", cur_fps, cur_world.transform.position);
 	}
 
+	private void GroundTransform(Transform t, float offset){
+		RaycastHit hit;
+		if(Physics.Raycast(t.position, -Vector3.up, out hit)){
+			Vector3 temp = t.position;
+			temp.y -= hit.distance - t.GetComponent<Collider>().bounds.extents.y + offset;
+
+			t.position = temp;
+		}
+	}
+
 	//Sets fps controller to current index thing
 	private void SetControlledFPS(){
 		//Enable new fps controller
@@ -116,19 +126,22 @@ public class FPSChanger : MonoBehaviour{
 		worldMapping = CurrentGameState == GameStates.Learning ? LearningWorldOrder : TestingWorldOrder;
 		spawnMapping = CurrentGameState == GameStates.Learning ? LearningSpawns : TestingSpawns;
 
+		//Get the chosen spawn index
+		playerSpawn = spawnMapping[m_currFPSIndex].PlayerSpawnIndex;
+		Transform spawnTransform = PlayerSpawns[worldMapping[m_currFPSIndex], playerSpawn].transform;
+
 		//Get the new fps controller's GO
 		newGuy = FPSControllers[worldMapping[m_currFPSIndex]];
 
-		//Get the chosen spawn index
-		playerSpawn = spawnMapping[m_currFPSIndex].PlayerSpawnIndex;
-
 		//Move him to the correct spawn, with correct rot too
-		Transform spawnTransform = PlayerSpawns[worldMapping[m_currFPSIndex], playerSpawn].transform;
 		newGuy.transform.position = spawnTransform.position;
 		newGuy.transform.rotation = spawnTransform.rotation;
 
 		//Enable him
 		newGuy.SetActive(true);
+		
+		//Put him on the ground
+		GroundTransform(newGuy.transform, 0.0f);
 	}
 
 	//Learning

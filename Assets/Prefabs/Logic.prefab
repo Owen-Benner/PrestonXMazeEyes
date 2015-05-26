@@ -57,6 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b52aef1e0bfa432fbd53b276f78f755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentGameState: 0
   Worlds:
   - {fileID: 0}
   - {fileID: 0}
@@ -81,11 +82,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  WorldOrder: 
-  Left: 0
-  Right: 1
-  Top: -.200000003
-  Bot: 1
+  TestingTimeLimit: 20
+  PreImageShowTime: 3
+  Left: .270000011
+  Right: .5
+  Top: .129999995
+  Bot: .5
 --- !u!114 &11469274
 MonoBehaviour:
   m_ObjectHideFlags: 1
