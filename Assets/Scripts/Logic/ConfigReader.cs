@@ -17,24 +17,45 @@ public class ConfigReader : MonoBehaviour{
 	public string FileToRead = "config.txt";
 
 	private FPSChanger fps;
+	private Logger logger;
 
 	void Awake() {
 		fps = GetComponent<FPSChanger>();
+		logger = GetComponent<Logger>();
 	}
 
 	void Start() {
 
-		//Handle any problems that might arise when reading the text
+		//Initialize our logger
+		logger.InitLogger();
+
 		try
 		{
 			StreamReader reader = new StreamReader(FileToRead, Encoding.Default);
 
 			using (reader)
 			{
-				for(int i = 0; i < linesToRead; i++){
-					string line;
-					string[] entries;
+				string line;
+				string[] entries;
 
+				//Read run number
+				line = reader.ReadLine();
+				logger.RunNumber = int.Parse(line);
+
+				//Read subject name
+				line = reader.ReadLine();
+				logger.SubjectName = line;
+
+				//Read collision sphere size
+				line = reader.ReadLine();
+				float size = float.Parse(line);
+				foreach(SphereCollider sc in
+						Resources.FindObjectsOfTypeAll(typeof(SphereCollider)) as SphereCollider[]){
+					sc.radius = size;
+				}
+
+				//Read environment configuration
+				for(int i = 0; i < linesToRead; i++){
 					//Read a line in
 					line = reader.ReadLine();
 
@@ -202,7 +223,6 @@ public class ConfigReader : MonoBehaviour{
 				//Done reading, close the reader
 				//
 				reader.Close();
-				Application.Quit();
 			}
 		}
 

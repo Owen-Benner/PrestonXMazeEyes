@@ -63,8 +63,7 @@ public class Logger : MonoBehaviour {
 	//
 
 	//Called to start the recording of a trial
-	public void StartTrial(string camera, Vector2 destination, string landmark,
-			GameObject trackme, Vector2 relOrigin){
+	public void StartTrial(Vector2 destination, GameObject trackme, Vector2 relOrigin){
 
 		//Setup local state
 		//
@@ -79,17 +78,11 @@ public class Logger : MonoBehaviour {
 		//Refer to an old log file for an idea
 		//of what each printed thing means
 		//
-		m_writer.WriteAttributeString("camera",
-				camera);
-
 		m_writer.WriteAttributeString("goalx",
 				(goalDestination.x - relativeOrigin.x).ToString());
 
 		m_writer.WriteAttributeString("goaly",
 				(goalDestination.y - relativeOrigin.y).ToString());
-
-		m_writer.WriteAttributeString("landmark",
-				landmark);
 
 		m_writer.WriteAttributeString("pose",
 				gameObjectToLog.transform.rotation.eulerAngles.y.ToString());
@@ -142,14 +135,7 @@ public class Logger : MonoBehaviour {
 		m_writer.WriteEndElement();
 	}
 
-	//
-	//Unity callbacks
-	//
-
-	void Awake(){
-		//Setup timer
-		logTimer = new Timer();
-
+	public void InitLogger(){
 		//Xml
 		//
 
@@ -165,6 +151,20 @@ public class Logger : MonoBehaviour {
 		m_writer.WriteAttributeString("number", RunNumber.ToString());
 		m_writer.WriteAttributeString("subject", SubjectName);
 		m_writer.WriteAttributeString("version", VersionString);
+	}
+
+	public void LogDebug(string s){
+		m_writer.WriteStartElement("run");
+		m_writer.WriteEndElement();
+	}
+
+	//
+	//Unity callbacks
+	//
+
+	void Awake(){
+		//Setup timer
+		logTimer = new Timer();
 	}
 
 	//Log whatever

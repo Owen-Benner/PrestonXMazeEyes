@@ -100,7 +100,7 @@ public class FPSChanger : MonoBehaviour{
 
 		GameObject cur_dest = ObjSpawns[worldMapping[m_currFPSIndex], playerSpawn];
 
-		logger.StartTrial("FPV", cur_dest.transform.position, "--", cur_fps, cur_world.transform.position);
+		logger.StartTrial(cur_dest.transform.position, cur_fps, cur_world.transform.position);
 	}
 
 	private void GroundTransform(Transform t, float offset){

@@ -9,8 +9,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
     [Serializable]
     public class MouseLook
     {
-        public float XSensitivity = 2f;
-        public float YSensitivity = 2f;
+        public float XSensitivity = 10.0f;
+        public float YSensitivity = 50.0f;
         public bool clampVerticalRotation = true;
         public float MinimumX = -90F;
         public float MaximumX = 90F;
@@ -36,7 +36,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			Quaternion tempPlayerRot = character.localRotation;
 			Quaternion tempCamRot = camera.localRotation;
 
-            tempPlayerRot *= Quaternion.Euler (0f, yRot, 0f);
+            tempPlayerRot *= Quaternion.Euler (0f, 3 * yRot, 0f);
 
 			character.localRotation = tempPlayerRot;
 			camera.localRotation = tempCamRot;
