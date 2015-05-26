@@ -204,7 +204,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void GetInput(out float speed)
         {
             // Read input
-            float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
+            float horizontal = 0.0f;
             float vertical = CrossPlatformInputManager.GetAxis("Vertical");
 
             bool waswalking = m_IsWalking;
@@ -257,8 +257,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 		public void SetRotation(Quaternion rotation){
-			//m_MouseLook.OverrideRotation(rotation);
-			//m_MouseLook.Init(transform , m_Camera.transform); //TODO 
+			//if(m_MouseLook != null)
+				//m_MouseLook.Init(transform , m_Camera.transform);
 		}
     }
 }

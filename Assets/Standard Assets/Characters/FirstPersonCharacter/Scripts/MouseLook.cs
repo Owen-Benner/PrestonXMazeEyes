@@ -31,6 +31,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public void LookRotation(Transform character, Transform camera)
         {
+            float yRot = CrossPlatformInputManager.GetAxis("Turning") * YSensitivity;
+
+			Quaternion tempPlayerRot = character.localRotation;
+			Quaternion tempCamRot = camera.localRotation;
+
+            tempPlayerRot *= Quaternion.Euler (0f, yRot, 0f);
+
+			character.localRotation = tempPlayerRot;
+			camera.localRotation = tempCamRot;
+        }
+
+        public void LookRotationMouse(Transform character, Transform camera)
+        {
             float yRot = CrossPlatformInputManager.GetAxis("Mouse X") * XSensitivity;
             float xRot = CrossPlatformInputManager.GetAxis("Mouse Y") * YSensitivity;
 
@@ -53,7 +66,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 camera.localRotation = m_CameraTargetRot;
             }
         }
-
 
         Quaternion ClampRotationAroundXAxis(Quaternion q)
         {
