@@ -14,7 +14,10 @@ public class ConfigReader : MonoBehaviour{
 	private static int NumImages = NumEnvironments * NumObjSpawns;
 	private static int linesToRead = 7;
 
-	public string FileToRead = "config.txt";
+	public string GeneralConfig = "general.txt";
+	public string FreeRoamConfig = "freeroam.txt";
+	public string StudyConfig = "study.txt";
+	public string TestConfig = "test.txt";
 
 	private FPSChanger fps;
 	private Logger logger;
@@ -31,7 +34,7 @@ public class ConfigReader : MonoBehaviour{
 
 		try
 		{
-			StreamReader reader = new StreamReader(FileToRead, Encoding.Default);
+			StreamReader reader = new StreamReader(FreeRoamConfig, Encoding.Default);
 
 			using (reader)
 			{

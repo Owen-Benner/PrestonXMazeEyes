@@ -23,7 +23,7 @@ Line 5 is the learning phase's time limit: float, seconds
 Line 6 is the testing phase's time limit: float, seconds
 IMAGE CONFIG
 Line 7 maps and image file to one of the 28 places an object can spawn: [1 - 28], 28 entries, no repeats
-LEARNING PHASE 
+LEARNING PHASE
 Line 8 is order player moves through environments: [2 - 6], however many entries
 Line 9 chooses an player spawn for the env: [0 - 3], same number of entires as line 2
 Line 10 is like above, but for obj spawns: [0 - 3], same number of entries as line 2
