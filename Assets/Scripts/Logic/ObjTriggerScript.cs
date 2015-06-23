@@ -25,6 +25,7 @@ public class ObjTriggerScript : MonoBehaviour{
 	void Awake(){
 		fps = GameObject.FindWithTag("Logic").GetComponent<FPSChanger>();
 		timer = new Timer();
+		NoInputTime = fps.NoInputTime;
 	}
 
 	void Update(){
@@ -35,7 +36,8 @@ public class ObjTriggerScript : MonoBehaviour{
 			fps.EnableInput();
 			active = false;
 
-			fps.CycleFPSController();
+			print(fps.WhatIsIndex(gameObject)); //XXX DEBUG
+			fps.CycleFPSController(fps.WhatIsIndex(gameObject));
 		}
 	}
 

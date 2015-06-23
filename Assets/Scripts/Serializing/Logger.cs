@@ -58,6 +58,9 @@ public class Logger : MonoBehaviour {
 	//Are we currently inside a trial element?
 	private bool inTrial = false;
 
+	//Time take to find object
+	private float timeStart;
+
 	//
 	//Public methods
 	//
@@ -97,11 +100,22 @@ public class Logger : MonoBehaviour {
 		//
 		inTrial = true;
 		logTimer.SetTimer(LogTimeInterval);
+		timeStart = Time.time;
 	}
 
 	//Ends a started trial
-	public void EndTrial(){
-		m_writer.WriteEndElement();
+	public void EndTrial(int index = -1){
+
+		//Write the no bs element
+		//
+		m_writer.WriteStartElement("done");
+		m_writer.WriteAttributeString("time_elapsed", (Time.time - timeStart).ToString());
+		if(index != -1)
+			m_writer.WriteAttributeString("index", index.ToString());
+		m_writer.WriteEndElement();//End no bs element
+
+		m_writer.WriteEndElement();//End trial element
+
 		inTrial = false;
 	}
 
