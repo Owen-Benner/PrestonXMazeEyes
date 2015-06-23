@@ -36,7 +36,6 @@ public class ObjTriggerScript : MonoBehaviour{
 			fps.EnableInput();
 			active = false;
 
-			print(fps.WhatIsIndex(gameObject)); //XXX DEBUG
 			fps.CycleFPSController(fps.WhatIsIndex(gameObject));
 		}
 	}

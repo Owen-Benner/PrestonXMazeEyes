@@ -1,58 +1,85 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <run number="-1" subject="name not assigned" version="1.0">
-  <testing>
-    <trial goalx="3013.2" goaly="39.1" pose="270" startx="3017.6" starty="36.79359">
-      <frame distance="4.967843" pose="270" timestamp="0.2970251" x="3017.6" y="36.79359" />
-      <frame distance="4.967843" pose="270" timestamp="0.530815" x="3017.6" y="36.79359" />
-      <frame distance="4.967843" pose="270" timestamp="0.738956" x="3017.6" y="36.79359" />
-      <frame distance="4.967843" pose="270" timestamp="0.947272" x="3017.6" y="36.79359" />
-      <frame distance="4.931211" pose="270" timestamp="1.155649" x="3017.6" y="36.87359" />
-      <frame distance="3.129985" pose="270" timestamp="1.366965" x="3015.4" y="36.87359" />
-      <frame distance="2.235369" pose="264" timestamp="1.574798" x="3013.4" y="36.87359" />
-      <frame distance="2.931306" pose="240" timestamp="1.791108" x="3011.293" y="36.87359" />
-      <frame distance="4.356242" pose="216" timestamp="2.022554" x="3009.456" y="36.87359" />
-      <frame distance="5.288484" pose="210" timestamp="2.226625" x="3008.403" y="36.87359" />
-      <frame distance="5.997299" pose="180" timestamp="2.458805" x="3007.631" y="36.87359" />
-      <frame distance="5.689543" pose="168" timestamp="2.674494" x="3007.964" y="36.87359" />
-      <frame distance="5.460803" pose="192" timestamp="2.894876" x="3008.214" y="36.87359" />
-      <frame distance="5.766361" pose="174" timestamp="3.110762" x="3007.881" y="36.87359" />
-      <frame distance="5.083241" pose="150" timestamp="3.338763" x="3008.63" y="36.87359" />
-      <frame distance="4.122634" pose="150" timestamp="3.550652" x="3009.73" y="36.87359" />
-      <frame distance="3.450593" pose="162" timestamp="3.762493" x="3010.564" y="36.87359" />
-      <frame distance="3.004991" pose="162" timestamp="3.970523" x="3011.182" y="36.87359" />
-      <frame distance="2.806802" pose="162" timestamp="4.18559" x="3011.491" y="36.87359" />
-      <frame distance="2.806802" pose="162" timestamp="4.391175" x="3011.491" y="36.87359" />
-      <frame distance="2.806802" pose="162" timestamp="4.59457" x="3011.491" y="36.87359" />
-      <frame distance="2.806802" pose="162" timestamp="4.802847" x="3011.491" y="36.87359" />
-      <frame distance="2.806802" pose="162" timestamp="5.006603" x="3011.491" y="36.87359" />
-      <done time_elapsed="5.066716" index="0" />
+  <learning>
+    <trial goalx="300.9" goaly="102.3" pose="270" startx="305.3" starty="101.8">
+      <frame distance="4.428342" pose="270" timestamp="0.3533334" x="305.3" y="101.8" />
+      <frame distance="4.428342" pose="270" timestamp="0.5662284" x="305.3" y="101.8" />
+      <frame distance="4.428342" pose="270" timestamp="0.7820083" x="305.3" y="101.8" />
+      <frame distance="4.428342" pose="270" timestamp="1.00642" x="305.3" y="101.8" />
+      <frame distance="4.428342" pose="270" timestamp="1.226358" x="305.3" y="101.8" />
+      <frame distance="4.428342" pose="270" timestamp="1.434255" x="305.3" y="101.8" />
+      <frame distance="4.428342" pose="270" timestamp="1.638258" x="305.3" y="101.8" />
+      <frame distance="4.428342" pose="270" timestamp="1.846273" x="305.3" y="101.8" />
+      <frame distance="4.428342" pose="270" timestamp="2.050192" x="305.3" y="101.8" />
+      <frame distance="4.428342" pose="270" timestamp="2.258351" x="305.3" y="101.8" />
+      <frame distance="4.428342" pose="270" timestamp="2.462248" x="305.3" y="101.8" />
+      <frame distance="4.428342" pose="270" timestamp="2.67426" x="305.3" y="101.8" />
+      <frame distance="4.428342" pose="270" timestamp="2.878146" x="305.3" y="101.8" />
+      <frame distance="4.428342" pose="270" timestamp="3.086399" x="305.3" y="101.8" />
+      <frame distance="4.428342" pose="270" timestamp="3.294038" x="305.3" y="101.8" />
+      <frame distance="4.428342" pose="270" timestamp="3.502128" x="305.3" y="101.8" />
+      <frame distance="4.428342" pose="270" timestamp="3.70688" x="305.3" y="101.8" />
+      <frame distance="4.428342" pose="270" timestamp="3.913984" x="305.3" y="101.8" />
+      <frame distance="4.428342" pose="270" timestamp="4.118406" x="305.3" y="101.8" />
+      <frame distance="4.428342" pose="270" timestamp="4.326148" x="305.3" y="101.8" />
+      <frame distance="4.428342" pose="270" timestamp="4.534047" x="305.3" y="101.8" />
+      <frame distance="4.428342" pose="270" timestamp="4.738021" x="305.3" y="101.8" />
+      <frame distance="4.428342" pose="270" timestamp="4.946772" x="305.3" y="101.8" />
+      <frame distance="3.227518" pose="270" timestamp="5.150568" x="304.1001" y="101.88" />
+      <frame distance="1.271446" pose="270" timestamp="5.35402" x="302.1001" y="101.88" />
+      <frame distance="0.9034864" pose="270" timestamp="5.558314" x="300.1001" y="101.88" />
+      <frame distance="2.831253" pose="276" timestamp="5.759438" x="298.1001" y="101.88" />
+      <frame distance="4.761724" pose="318" timestamp="5.961868" x="296.1569" y="101.88" />
+      <frame distance="5.615947" pose="354" timestamp="6.162012" x="295.2998" y="101.88" />
+      <frame distance="5.307781" pose="30" timestamp="6.378224" x="295.6089" y="101.88" />
+      <frame distance="3.640277" pose="54" timestamp="6.606139" x="297.2841" y="101.88" />
+      <frame distance="1.598994" pose="90.00001" timestamp="6.822355" x="299.3572" y="101.88" />
+      <frame distance="0.4969458" pose="138" timestamp="7.030567" x="301.1656" y="101.88" />
+      <frame distance="1.14307" pose="180" timestamp="7.238084" x="301.9631" y="101.88" />
+      <frame distance="1.14307" pose="180" timestamp="7.466044" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="7.67003" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="7.902036" x="301.9631" y="101.88" />
+      <frame distance="1.14307" pose="180" timestamp="8.110016" x="301.9631" y="101.88" />
+      <frame distance="1.14307" pose="180" timestamp="8.318188" x="301.9631" y="101.88" />
+      <frame distance="1.14307" pose="180" timestamp="8.53068" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="8.734048" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="8.942179" x="301.9631" y="101.88" />
+      <frame distance="1.14307" pose="180" timestamp="9.150108" x="301.9631" y="101.88" />
+      <frame distance="1.14307" pose="180" timestamp="9.3619" x="301.9631" y="101.88" />
+      <frame distance="1.14307" pose="180" timestamp="9.578141" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="9.793928" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="10.01405" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="10.23407" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="10.45406" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="10.67413" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="10.89434" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="11.11438" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="11.33397" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="11.54983" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="11.76992" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="11.9899" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="12.20995" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="12.42998" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="12.65002" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="12.87013" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="13.09395" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="13.32205" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="13.53774" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="13.76222" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="13.97777" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="14.20226" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="14.42206" x="301.9631" y="101.88" />
+      <frame distance="1.143067" pose="180" timestamp="14.64189" x="301.9631" y="101.88" />
+      <done time_elapsed="14.78582" index="0" />
     </trial>
     <trial goalx="294.1001" goaly="101.7" pose="270" startx="298.5" starty="101.8">
-      <frame distance="4.401039" pose="270" timestamp="5.291115" x="298.5" y="101.8" />
-      <frame distance="4.401039" pose="270" timestamp="5.494863" x="298.5" y="101.8" />
-      <frame distance="4.401039" pose="270" timestamp="5.698584" x="298.5" y="101.8" />
-      <frame distance="4.401039" pose="270" timestamp="5.906872" x="298.5" y="101.8" />
-      <frame distance="4.401039" pose="270" timestamp="6.110822" x="298.5" y="101.8" />
-      <frame distance="4.401039" pose="270" timestamp="6.314553" x="298.5" y="101.8" />
-      <frame distance="4.401039" pose="270" timestamp="6.523358" x="298.5" y="101.8" />
-      <frame distance="4.401039" pose="234" timestamp="6.742945" x="298.5" y="101.8" />
-      <frame distance="4.279422" pose="186" timestamp="6.958579" x="298.3757" y="101.88" />
-      <frame distance="4.049657" pose="186" timestamp="7.175173" x="298.1458" y="101.88" />
-      <frame distance="3.677504" pose="210" timestamp="7.39079" x="297.7732" y="101.88" />
-      <frame distance="2.899392" pose="174" timestamp="7.606669" x="296.9939" y="101.88" />
-      <frame distance="3.647023" pose="162" timestamp="7.814571" x="297.7427" y="101.88" />
-      <frame distance="3.728469" pose="186" timestamp="8.018724" x="297.8242" y="101.88" />
-      <frame distance="3.498774" pose="186" timestamp="8.234612" x="297.5942" y="101.88" />
-      <frame distance="3.290084" pose="186" timestamp="8.434651" x="297.3853" y="101.88" />
-      <frame distance="2.999059" pose="204" timestamp="8.654591" x="297.0938" y="101.88" />
-      <frame distance="1.453571" pose="258" timestamp="8.878869" x="295.5425" y="101.88" />
-      <frame distance="0.7269821" pose="300" timestamp="9.094684" x="293.3958" y="101.88" />
-      <frame distance="1.993981" pose="354" timestamp="9.314479" x="292.1143" y="101.88" />
-      <frame distance="1.380196" pose="48" timestamp="9.538816" x="292.7317" y="101.88" />
-      <frame distance="0.8202859" pose="96" timestamp="9.762682" x="294.9004" y="101.88" />
-      <frame distance="2.569788" pose="138" timestamp="9.962693" x="296.6636" y="101.88" />
-      <frame distance="3.504869" pose="138" timestamp="10.18677" x="297.6003" y="101.88" />
-      <done time_elapsed="-5.066716" />
+      <frame distance="4.401039" pose="270" timestamp="14.99789" x="298.5" y="101.8" />
+      <frame distance="4.401039" pose="270" timestamp="15.23027" x="298.5" y="101.8" />
+      <frame distance="4.401039" pose="270" timestamp="15.45771" x="298.5" y="101.8" />
+      <frame distance="4.401039" pose="270" timestamp="15.66194" x="298.5" y="101.8" />
+      <frame distance="4.401039" pose="270" timestamp="15.87789" x="298.5" y="101.8" />
+      <frame distance="4.401039" pose="270" timestamp="16.09517" x="298.5" y="101.8" />
+      <done time_elapsed="-14.78582" />
     </trial>
-  </testing>
+  </learning>
 </run>

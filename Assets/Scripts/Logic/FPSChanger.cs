@@ -188,7 +188,7 @@ public class FPSChanger : MonoBehaviour{
 	private void PreImageViewing(){
 		//Show image
 		//
-		int spawnNum = CurrentGameState == GameStates.Learning ? LearningSpawns[m_currFPSIndex].ObjSpawnIndex :
+		int spawnNum = isLearning ? LearningSpawns[m_currFPSIndex].ObjSpawnIndex :
 			TestingSpawns[m_currFPSIndex].ObjSpawnIndex;
 		preImageEnabled = true;
 		StartShowingImage(spawnNum);
@@ -286,6 +286,7 @@ public class FPSChanger : MonoBehaviour{
 		SetControlledFPS();
 
 		if(!FreeRoam){
+			print(isLearning);
 
 			//Enable a goal point
 			if(isLearning)
