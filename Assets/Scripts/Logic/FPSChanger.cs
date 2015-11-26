@@ -78,8 +78,6 @@ public class FPSChanger : MonoBehaviour{
 	//Inspector configurable image overlay borders; percentage of the screen in [0, 1]
 	public float Left, Right, Top, Bot;
 
-	private GameObject cur_dest;
-
 	//
 	//Private data
 	//
@@ -97,6 +95,7 @@ public class FPSChanger : MonoBehaviour{
 	private void BeginLogging(){
 		List<int> worldMapping;
 		List<WorldState> spawnMapping;
+        GameObject cur_dest;
 		int playerSpawn;
 
 		spawnMapping = isLearning ? LearningSpawns : TestingSpawns;
@@ -109,7 +108,8 @@ public class FPSChanger : MonoBehaviour{
 		//Get the chosen spawn index
 		playerSpawn = spawnMapping[m_currFPSIndex].PlayerSpawnIndex;
 
-		cur_dest = ObjSpawns[worldMapping[m_currFPSIndex], playerSpawn];
+		int objSpawn = spawnMapping[m_currFPSIndex].ObjSpawnIndex;
+		cur_dest = ObjSpawns[worldMapping[m_currFPSIndex], objSpawn];
 
 		logger.StartTrial(cur_dest.transform.position, cur_fps, cur_world.transform.position);
 	}
@@ -198,7 +198,6 @@ public class FPSChanger : MonoBehaviour{
 
 		//Disable input during this time
 		DisableInput();
-
 	}
 
 	//
@@ -286,8 +285,6 @@ public class FPSChanger : MonoBehaviour{
 		SetControlledFPS();
 
 		if(!FreeRoam){
-			print(isLearning);
-
 			//Enable a goal point
 			if(isLearning)
 				EnableCurrentObj();
@@ -308,6 +305,7 @@ public class FPSChanger : MonoBehaviour{
 	}
 
 	void Update(){
+
 		//If in testing phase, timeout after a while, also show images before trials
 		if(preImageEnabled){
 			if(imageTimer.isDone){
@@ -380,9 +378,12 @@ public class FPSChanger : MonoBehaviour{
 				m_currFPSIndex++;
 				if(m_currFPSIndex == LearningWorldOrder.Count){
 					//Include test phase into logs
-					logger.EndPhase();
+                    if(!FreeRoam)
+                        logger.EndPhase();
 
 					Application.Quit(); //Note: We stop here
+                    print("Game ended idiot");
+                    Time.timeScale = 0;
 
 					/*
 					logger.StartPhase("testing");

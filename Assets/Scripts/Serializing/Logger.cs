@@ -41,10 +41,10 @@ public class Logger : MonoBehaviour {
 	private GameObject gameObjectToLog;
 
 	//The goal the player is trying to move towards
-	private Vector2 goalDestination;
+	private Vector3 goalDestination;
 	
 	//The origin of each world
-	private Vector2 relativeOrigin;
+	private Vector3 relativeOrigin;
 
 	//Other private state
 	//
@@ -66,13 +66,13 @@ public class Logger : MonoBehaviour {
 	//
 
 	//Called to start the recording of a trial
-	public void StartTrial(Vector2 destination, GameObject trackme, Vector2 relOrigin){
+	public void StartTrial(Vector3 destination, GameObject trackme, Vector3 relOrigin){
 
 		//Setup local state
 		//
 		gameObjectToLog = trackme;
 		goalDestination = destination;
-		relativeOrigin = relOrigin;
+		relativeOrigin = relOrigin; // XXX DEBUG
 
 		//Write a trial element
 		//
@@ -85,16 +85,16 @@ public class Logger : MonoBehaviour {
 				(goalDestination.x - relativeOrigin.x).ToString());
 
 		m_writer.WriteAttributeString("goaly",
-				(goalDestination.y - relativeOrigin.y).ToString());
+				(goalDestination.z - relativeOrigin.z).ToString());
 
 		m_writer.WriteAttributeString("pose",
-				gameObjectToLog.transform.rotation.eulerAngles.y.ToString());
+				gameObjectToLog.transform.rotation.eulerAngles.z.ToString());
 
 		m_writer.WriteAttributeString("startx",
 				(gameObjectToLog.transform.position.x - relativeOrigin.x).ToString());
 
 		m_writer.WriteAttributeString("starty",
-				(gameObjectToLog.transform.position.y - relativeOrigin.y).ToString());
+				(gameObjectToLog.transform.position.z - relativeOrigin.z).ToString());
 
 		//Setup timer; other state
 		//
@@ -139,11 +139,14 @@ public class Logger : MonoBehaviour {
 		//This is our relevant data:
 		//
 		Transform t = gameObjectToLog.transform;
-		m_writer.WriteAttributeString("distance", Vector2.Distance(t.position, goalDestination).ToString());
-		m_writer.WriteAttributeString("pose", t.rotation.eulerAngles.y.ToString());
+        if(Vector3.Distance(t.position, goalDestination) < 10){
+            Debug.LogError("Distance is hella small: " + goalDestination.ToString()); // XXX DEBUG
+        }
+		m_writer.WriteAttributeString("distance", Vector3.Distance(t.position, goalDestination).ToString());
+		m_writer.WriteAttributeString("pose", t.rotation.eulerAngles.z.ToString());
 		m_writer.WriteAttributeString("timestamp", Time.time.ToString());
 		m_writer.WriteAttributeString("x", (t.position.x - relativeOrigin.x).ToString());
-		m_writer.WriteAttributeString("y", (t.position.y - relativeOrigin.y).ToString());
+		m_writer.WriteAttributeString("y", (t.position.z - relativeOrigin.z).ToString());
 
 		//Done!
 		m_writer.WriteEndElement();
@@ -183,6 +186,14 @@ public class Logger : MonoBehaviour {
 
 	//Log whatever
 	void Update(){
+
+        // XXX DEBUG
+		Transform t = gameObjectToLog.transform;
+		//print("Distance: " + Vector3.Distance(t.position, goalDestination).ToString());
+		//print("Player pos: " + t.position.ToString());
+        //print("Goal dest: " + goalDestination.ToString());
+        // XXX DEBUG
+
 		//We write based on this timer, not based on framerate
 		if(inTrial && logTimer.isDone){
 			WriteFrame();
