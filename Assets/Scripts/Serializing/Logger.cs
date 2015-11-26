@@ -88,7 +88,7 @@ public class Logger : MonoBehaviour {
 				(goalDestination.z - relativeOrigin.z).ToString());
 
 		m_writer.WriteAttributeString("pose",
-				gameObjectToLog.transform.rotation.eulerAngles.z.ToString());
+				gameObjectToLog.transform.rotation.eulerAngles.y.ToString());
 
 		m_writer.WriteAttributeString("startx",
 				(gameObjectToLog.transform.position.x - relativeOrigin.x).ToString());
@@ -143,7 +143,7 @@ public class Logger : MonoBehaviour {
             Debug.LogError("Distance is hella small: " + goalDestination.ToString()); // XXX DEBUG
         }
 		m_writer.WriteAttributeString("distance", Vector3.Distance(t.position, goalDestination).ToString());
-		m_writer.WriteAttributeString("pose", t.rotation.eulerAngles.z.ToString());
+		m_writer.WriteAttributeString("pose", t.rotation.eulerAngles.y.ToString());
 		m_writer.WriteAttributeString("timestamp", Time.time.ToString());
 		m_writer.WriteAttributeString("x", (t.position.x - relativeOrigin.x).ToString());
 		m_writer.WriteAttributeString("y", (t.position.z - relativeOrigin.z).ToString());
