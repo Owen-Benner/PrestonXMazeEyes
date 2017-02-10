@@ -126,10 +126,7 @@ public class ConfigReader : MonoBehaviour{
 				//
 				reader.Close();
 			}
-		}
-
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			Debug.LogError("Error reading file!!");
 			Debug.LogError(e);
 			Application.Quit();
