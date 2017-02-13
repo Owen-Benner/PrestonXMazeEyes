@@ -1,2 +1,5 @@
 0.8
 1.2
+
+Line 1: Min wait time, float, seconds
+Line 2: Max wait time, float, seconds

@@ -96,6 +96,9 @@ public class Logger : MonoBehaviour {
 		m_writer.WriteAttributeString("starty",
 				(gameObjectToLog.transform.position.z - relativeOrigin.z).ToString());
 
+		m_writer.WriteAttributeString("starttime",
+				(Time.time).ToString());
+
 		//Setup timer; other state
 		//
 		inTrial = true;
@@ -186,7 +189,6 @@ public class Logger : MonoBehaviour {
 
 	//Log whatever
 	void Update(){
-		//We write based on this timer, not based on framerate
 		if(inTrial && logTimer.isDone){
 			WriteFrame();
 			logTimer.SetTimer(LogTimeInterval);
