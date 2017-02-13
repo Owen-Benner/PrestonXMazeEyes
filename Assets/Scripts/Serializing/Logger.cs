@@ -186,14 +186,6 @@ public class Logger : MonoBehaviour {
 
 	//Log whatever
 	void Update(){
-
-        // XXX DEBUG
-		Transform t = gameObjectToLog.transform;
-		//print("Distance: " + Vector3.Distance(t.position, goalDestination).ToString());
-		//print("Player pos: " + t.position.ToString());
-        //print("Goal dest: " + goalDestination.ToString());
-        // XXX DEBUG
-
 		//We write based on this timer, not based on framerate
 		if(inTrial && logTimer.isDone){
 			WriteFrame();

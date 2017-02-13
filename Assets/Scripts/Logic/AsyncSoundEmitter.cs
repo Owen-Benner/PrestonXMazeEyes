@@ -6,7 +6,7 @@ public class AsyncSoundEmitter : MonoBehaviour {
 
     // Logger, and related variables
     private SoundLogger logger;
-    private readonly string configFileName = "soundconfig.txt"; // TODO Use this
+    private readonly string configFileName = "soundconfig.txt";
     private readonly string outputFileName = "soundoutput.xml";
 
     private AudioSource myaudio;
@@ -14,9 +14,10 @@ public class AsyncSoundEmitter : MonoBehaviour {
     public void Start(){
         logger = new SoundLogger(outputFileName);
         myaudio = GetComponent<AudioSource>();
-        float low = 0.8f;
-        float high = 1.2f;
-        StartCoroutine(PlaySounds(low, high));
+
+        SoundConfigInfo info = SoundConfigReader.CreateConfig(configFileName);
+        print(string.Format("lo:{0}, hi:{1}", info.lowTime, info.hiTime));
+        StartCoroutine(PlaySounds(info.lowTime, info.hiTime));
     }
 
     public IEnumerator PlaySounds(float low, float high){

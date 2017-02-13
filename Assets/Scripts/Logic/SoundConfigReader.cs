@@ -7,7 +7,7 @@ using System.Collections;
 // Reads a sound config file and stores info from it
 // TODO Audio file should be specifiable
 public class SoundConfigReader {
-    public static SoundConfigInfo ReadConfig(string filename){
+    public static SoundConfigInfo CreateConfig(string filename){
         // TODO Try/catch
         string[] lines = System.IO.File.ReadAllLines(filename);
         return new SoundConfigInfo(
