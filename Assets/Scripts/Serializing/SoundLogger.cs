@@ -8,19 +8,18 @@ using System.Linq;
 using System.IO;
 
 // Logs sound events to some XML file
-public class SoundLogger : IDisposable {
+public class SoundLogger : IDisposable, ILog {
     private string filename;
-    private List<float> times; // list of time sounds were logged
+    private List<string> times; // list of time sounds were logged
     
     public SoundLogger(string filename){
         this.filename = filename;
-        times = new List<float>();
+        times = new List<string>();
     }
 
-    public void LogSound(float time){
-        // TODO
-        times.Add(time);
-        Debug.Log(string.Format("Played sound at: {0}.", time));
+    public void Log(string msg){
+        times.Add(msg);
+        Debug.Log(string.Format("Played sound at: {0}.", msg));
     }
 
     public void Dispose(){  
