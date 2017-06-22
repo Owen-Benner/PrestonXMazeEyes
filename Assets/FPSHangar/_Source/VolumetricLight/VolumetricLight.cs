@@ -142,7 +142,7 @@ public class Lightbeam : MonoBehaviour
         mesh.triangles = newTriangles;
         mesh.normals = newNormals;
         mesh.RecalculateBounds();
-        mesh.Optimize();
+        ;
         CalculateMeshTangents(mesh);
 
         return mesh;
