@@ -11,24 +11,24 @@ public class AsyncSoundEmitter : MonoBehaviour {
 
     private AudioSource myaudio;
 
-	public Transform SquareManager;
+    private ArduinoWriter aw;
 
     public void Start(){
         logger = new SoundLogger(outputFileName);
         myaudio = GetComponent<AudioSource>();
+        aw = new ArduinoWriter();
 
         SoundConfigInfo info = SoundConfigReader.CreateConfig(configFileName);
-		print(string.Format("lo:{0}, hi:{1}, dur:{2}", info.lowTime, info.hiTime, info.durTime));
-
-		StartCoroutine(PlaySounds(info.lowTime, info.hiTime, info.durTime));
+        print(string.Format("lo:{0}, hi:{1}", info.lowTime, info.hiTime));
+        StartCoroutine(PlaySounds(info.lowTime, info.hiTime));
     }
 
-	public IEnumerator PlaySounds(float low, float high, float dur){
+    public IEnumerator PlaySounds(float low, float high){
         // Play sounds forever, starting immediatly, delayed uniform time between low and high
         while(true){
             myaudio.Play();
             logger.Log(Time.time.ToString());
-			SquareManager.SendMessage ("Blink", dur);
+            aw.Log("");
             yield return new WaitForSeconds(RandomHelper.Uniform(low, high));
         }
     }
