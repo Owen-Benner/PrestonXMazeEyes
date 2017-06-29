@@ -59,7 +59,6 @@ public class FPSChanger : MonoBehaviour{
 	//Index of current active FPSController go
 	private int m_currFPSIndex;
 
-	private SquareManager sync;
 	private bool wasWhite = false;
 	public bool isWhite = false;
 	private bool doLog = false;
@@ -277,11 +276,6 @@ public class FPSChanger : MonoBehaviour{
 
 		imageTimer = new Timer();
 		testTimer = new Timer();
-
-		//Sync squares
-
-		sync = GameObject.FindWithTag("Logic").GetComponent<SquareManager>();
-
 	}
 
 	void Start(){
@@ -321,7 +315,6 @@ public class FPSChanger : MonoBehaviour{
 
 	void Update(){
 		if (doLog) {
-			//syncLogger.Log (Time.realtimeSinceStartup.ToString ());
 			syncLogger.Log (Time.time.ToString ());
 			doLog = false;
 		}
