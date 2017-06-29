@@ -36,7 +36,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			Quaternion tempPlayerRot = character.localRotation;
 			Quaternion tempCamRot = camera.localRotation;
 
-            tempPlayerRot *= Quaternion.Euler (0f, 3 * yRot, 0f);
+            tempPlayerRot *= Quaternion.Euler (0f, yRot, 0f);
 
 			character.localRotation = tempPlayerRot;
 			camera.localRotation = tempCamRot;

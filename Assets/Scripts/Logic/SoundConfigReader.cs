@@ -12,7 +12,8 @@ public class SoundConfigReader {
         string[] lines = System.IO.File.ReadAllLines(filename);
         return new SoundConfigInfo(
                 Single.Parse(lines[0]),
-                Single.Parse(lines[1])
+                Single.Parse(lines[1]),
+				Single.Parse(lines[2])
                 );
     }
 }
@@ -20,8 +21,10 @@ public class SoundConfigReader {
 public class SoundConfigInfo {
     public readonly float lowTime; // Minimum time between sounds being played
     public readonly float hiTime;  // Maximum time between sounds being played
-    public SoundConfigInfo(float low, float hi){
+	public readonly float durTime; // Time sound is held on
+	public SoundConfigInfo(float low, float hi, float duration){
         lowTime = low;
         hiTime = hi;
+		durTime = duration;
     }
 }
