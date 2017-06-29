@@ -7,9 +7,17 @@ public class SquareManager : MonoBehaviour {
 	public Transform WhiteSquare;
 	public Transform BlackSquare;
 
+	//Reference to main configuration script
+	private FPSChanger fps;
+
+	void Awake() {
+		fps = GameObject.FindWithTag ("Logic").GetComponent<FPSChanger> ();
+	}
+
 	public void Swap() {
 		WhiteSquare.gameObject.SetActive(!WhiteSquare.gameObject.activeSelf);
 		BlackSquare.gameObject.SetActive(!BlackSquare.gameObject.activeSelf);
+		fps.isWhite = !fps.isWhite;
 	}
 
 	public void Start() {
