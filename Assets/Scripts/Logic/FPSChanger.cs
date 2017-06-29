@@ -59,6 +59,11 @@ public class FPSChanger : MonoBehaviour{
 	//Index of current active FPSController go
 	private int m_currFPSIndex;
 
+	private SquareManager sync;
+	private bool wasWhite = false;
+	public bool isWhite = false;
+	private bool doLog = false;
+	
 	//
 	//Images
 	//
@@ -84,7 +89,11 @@ public class FPSChanger : MonoBehaviour{
 
 	//Ref to our logger
 	private Logger logger;
-
+	private SoundLogger syncLogger;
+	private SoundLogger frameLogger;
+	private readonly string syncFileName = "soundoutput.xml";
+	private readonly string frameFileName = "frames.xml";
+	
 	//
 	//Helper Methods
 	//
@@ -268,6 +277,11 @@ public class FPSChanger : MonoBehaviour{
 
 		imageTimer = new Timer();
 		testTimer = new Timer();
+
+		//Sync squares
+
+		sync = GameObject.FindWithTag("Logic").GetComponent<SquareManager>();
+
 	}
 
 	void Start(){
@@ -283,7 +297,8 @@ public class FPSChanger : MonoBehaviour{
 
 		//Enable a player controller
 		SetControlledFPS();
-
+		syncLogger = new SoundLogger (syncFileName);
+		frameLogger = new SoundLogger (frameFileName);
 		if(!FreeRoam){
 			//Enable a goal point
 			if(isLearning)
@@ -305,6 +320,16 @@ public class FPSChanger : MonoBehaviour{
 	}
 
 	void Update(){
+		if (doLog) {
+			//syncLogger.Log (Time.realtimeSinceStartup.ToString ());
+			syncLogger.Log (Time.time.ToString ());
+			doLog = false;
+		}
+		frameLogger.Log (Time.time.ToString ());
+		if ((wasWhite && !isWhite) || (!wasWhite && isWhite)) {
+			wasWhite = !wasWhite;
+			doLog = true; // log frame start time at start of next frame; assuming this is relatively close to display time
+		}
 
 		//If in testing phase, timeout after a while, also show images before trials
 		if(preImageEnabled){
@@ -468,6 +493,11 @@ public class FPSChanger : MonoBehaviour{
 	public void StopShowingImage(){
 		imageEnabled = false;
 		imageToDraw = null;
+	}
+
+	void OnDestroy(){
+  	    syncLogger.Dispose ();
+		frameLogger.Dispose ();
 	}
 
 }
