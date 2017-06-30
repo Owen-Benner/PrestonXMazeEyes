@@ -11350,7 +11350,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2330.6001
+      value: 2330.6
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
       propertyPath: m_LocalPosition.y
@@ -11358,7 +11358,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 25.3000031
+      value: 25.300003
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
       propertyPath: m_LocalRotation.x
@@ -12726,7 +12726,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2330.6001
+      value: 2330.6
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
       propertyPath: m_LocalPosition.y
@@ -12734,7 +12734,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 25.3000031
+      value: 25.300003
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
       propertyPath: m_LocalRotation.x
@@ -24239,42 +24239,6 @@ Prefab:
       propertyPath: m_Name
       value: Snow FPS
       objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 149450, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 149450, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8200000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: panLevelCustomCurve.m_RotationOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8200000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: reverbZoneMixCustomCurve.m_RotationOrder
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
   m_IsPrefabParent: 0
@@ -28670,7 +28634,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2330.6001
+      value: 2330.6
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
       propertyPath: m_LocalPosition.y
@@ -28678,7 +28642,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 25.3000031
+      value: 25.300003
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
       propertyPath: m_LocalRotation.x
@@ -29137,7 +29101,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2330.6001
+      value: 2330.6
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
       propertyPath: m_LocalPosition.y
@@ -29145,7 +29109,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 25.3000031
+      value: 25.300003
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
       propertyPath: m_LocalRotation.x
@@ -29194,6 +29158,10 @@ Prefab:
     - target: {fileID: 100000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
+      propertyPath: m_MouseLook.YSensitivity
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
