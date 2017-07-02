@@ -60,7 +60,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2392, y: 189, z: 1805}
+  m_LocalPosition: {x: 2330.6, y: 0, z: 25.300003}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 445322}
@@ -111,7 +111,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 500
+  far clip plane: 700
   field of view: 75
   orthographic: 0
   orthographic size: 5
@@ -194,7 +194,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -288,7 +288,7 @@ MonoBehaviour:
   m_GravityMultiplier: 2
   m_MouseLook:
     XSensitivity: 2
-    YSensitivity: 0.5
+    YSensitivity: 1
     clampVerticalRotation: 1
     MinimumX: -90
     MaximumX: 90

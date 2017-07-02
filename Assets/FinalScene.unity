@@ -7057,21 +7057,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 361704243}
   m_Mesh: {fileID: 4300000, guid: 00d0b1b0be75d5d4b8910a4ee53e0455, type: 3}
---- !u!1 &362698360 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 125386, guid: 2bf161d3196c848b5b7d7c788203d185, type: 2}
-  m_PrefabInternal: {fileID: 1507387670}
---- !u!114 &362698365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 362698360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2645c0eea5742438fbfa66657fce0145, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &363433467
 Prefab:
   m_ObjectHideFlags: 0
@@ -7114,22 +7099,6 @@ Prefab:
     - target: {fileID: 100000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
       propertyPath: m_Name
       value: Hanger FPS
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 149450, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
@@ -11383,22 +11352,6 @@ Prefab:
     - target: {fileID: 100000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
       propertyPath: m_Name
       value: Desert FPS
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 149450, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
@@ -29135,34 +29088,6 @@ Prefab:
       propertyPath: m_Name
       value: Volcano FPS
       objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8200000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2000000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: far clip plane
-      value: 700
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 149450, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_MouseLook.YSensitivity
-      value: 0.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
   m_IsPrefabParent: 0
@@ -29432,18 +29357,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 11445274, guid: 2bf161d3196c848b5b7d7c788203d185, type: 2}
-      propertyPath: Worlds.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 11445274, guid: 2bf161d3196c848b5b7d7c788203d185, type: 2}
-      propertyPath: SpawnObjects.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 11445274, guid: 2bf161d3196c848b5b7d7c788203d185, type: 2}
-      propertyPath: FPSControllers.Array.size
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 483272, guid: 2bf161d3196c848b5b7d7c788203d185, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -29505,6 +29418,10 @@ Prefab:
       value: 
       objectReference: {fileID: 979706377}
     - target: {fileID: 11445274, guid: 2bf161d3196c848b5b7d7c788203d185, type: 2}
+      propertyPath: Worlds.Array.data[7]
+      value: 
+      objectReference: {fileID: 1414577182}
+    - target: {fileID: 11445274, guid: 2bf161d3196c848b5b7d7c788203d185, type: 2}
       propertyPath: FPSControllers.Array.data[0]
       value: 
       objectReference: {fileID: 599657261}
@@ -29533,6 +29450,10 @@ Prefab:
       value: 
       objectReference: {fileID: 1486364858}
     - target: {fileID: 11445274, guid: 2bf161d3196c848b5b7d7c788203d185, type: 2}
+      propertyPath: FPSControllers.Array.data[7]
+      value: 
+      objectReference: {fileID: 630521621}
+    - target: {fileID: 11445274, guid: 2bf161d3196c848b5b7d7c788203d185, type: 2}
       propertyPath: SpawnObjects.Array.data[0]
       value: 
       objectReference: {fileID: 1648283447}
@@ -29560,46 +29481,10 @@ Prefab:
       propertyPath: SpawnObjects.Array.data[6]
       value: 
       objectReference: {fileID: 338785108}
-    - target: {fileID: 125386, guid: 2bf161d3196c848b5b7d7c788203d185, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11445274, guid: 2bf161d3196c848b5b7d7c788203d185, type: 2}
-      propertyPath: PlayerPrefab
-      value: 
-      objectReference: {fileID: 100000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-    - target: {fileID: 11445274, guid: 2bf161d3196c848b5b7d7c788203d185, type: 2}
-      propertyPath: PreImageShowTime
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 11469274, guid: 2bf161d3196c848b5b7d7c788203d185, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11445274, guid: 2bf161d3196c848b5b7d7c788203d185, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11438964, guid: 2bf161d3196c848b5b7d7c788203d185, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11438964, guid: 2bf161d3196c848b5b7d7c788203d185, type: 2}
-      propertyPath: XmlLogOutput
-      value: output.xml
-      objectReference: {fileID: 0}
     - target: {fileID: 11445274, guid: 2bf161d3196c848b5b7d7c788203d185, type: 2}
       propertyPath: SpawnObjects.Array.data[7]
       value: 
       objectReference: {fileID: 176948397}
-    - target: {fileID: 11445274, guid: 2bf161d3196c848b5b7d7c788203d185, type: 2}
-      propertyPath: Worlds.Array.data[7]
-      value: 
-      objectReference: {fileID: 1414577182}
-    - target: {fileID: 11445274, guid: 2bf161d3196c848b5b7d7c788203d185, type: 2}
-      propertyPath: FPSControllers.Array.data[7]
-      value: 
-      objectReference: {fileID: 630521621}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2bf161d3196c848b5b7d7c788203d185, type: 2}
   m_IsPrefabParent: 0
