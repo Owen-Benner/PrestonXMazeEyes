@@ -5,18 +5,19 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 483272}
-  - 114: {fileID: 11445274}
-  - 114: {fileID: 11438964}
-  - 114: {fileID: 11469274}
+  - component: {fileID: 483272}
+  - component: {fileID: 11445274}
+  - component: {fileID: 11438964}
+  - component: {fileID: 11469274}
+  - component: {fileID: 114621393683386932}
   m_Layer: 0
   m_Name: Logic
   m_TagString: Logic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &483272
 Transform:
@@ -30,6 +31,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &11438964
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -44,8 +46,8 @@ MonoBehaviour:
   RunNumber: -1
   SubjectName: name not assigned
   VersionString: 1.0
-  XmlLogOutput: temp.xml
-  LogTimeInterval: .200000003
+  XmlLogOutput: output.xml
+  LogTimeInterval: 0.1
 --- !u!114 &11445274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -57,8 +59,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b52aef1e0bfa432fbd53b276f78f755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NoInputTime: 0
+  FreeRoam: 0
   CurrentGameState: 0
   Worlds:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -74,6 +79,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   SpawnObjects:
   - {fileID: 0}
   - {fileID: 0}
@@ -82,12 +88,15 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  LearningTimeLimit: 60
   TestingTimeLimit: 20
   PreImageShowTime: 3
-  Left: .270000011
-  Right: .5
-  Top: .129999995
-  Bot: .5
+  isWhite: 0
+  Left: 0.27
+  Right: 0.5
+  Top: 0.13
+  Bot: 0.5
 --- !u!114 &11469274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 932ec7bd42bae40418f412a84a598053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FileToRead: config.txt
+  TestConfig: config.txt
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -111,3 +120,14 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 125386}
   m_IsPrefabParent: 1
+--- !u!114 &114621393683386932
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 125386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2645c0eea5742438fbfa66657fce0145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
