@@ -200,10 +200,7 @@ public class Logger : MonoBehaviour {
 	void OnDestroy(){
 		if(inTrial)
 			EndTrial();
-
-		//End high level information
-		m_writer.WriteEndElement();
-
+		
 		//End our document
 		m_writer.WriteEndDocument();
 
