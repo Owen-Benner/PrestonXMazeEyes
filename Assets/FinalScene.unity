@@ -427,22 +427,6 @@ Prefab:
       propertyPath: m_Name
       value: Forest FPS
       objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 149450, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 2}
   m_IsPrefabParent: 0
