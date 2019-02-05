@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 Shader "Lightbeam/Lightbeam Detail" {
 	Properties {
 		_Color ("Color", Color) = (1,1,1,1)
@@ -42,7 +44,7 @@ Shader "Lightbeam/Lightbeam Detail" {
 			v2f vert (appdata_tan v)
 			{
 			    v2f o;			    		
-			    o.pos = mul( UNITY_MATRIX_MVP, v.vertex );
+			    o.pos = UnityObjectToClipPos( v.vertex );
 							
 				o.uv.xy = TRANSFORM_TEX(v.texcoord, _DetailTex);
 				o.uv.xy += float2(_DetailAnim.x, _DetailAnim.y) * _Time.x;
