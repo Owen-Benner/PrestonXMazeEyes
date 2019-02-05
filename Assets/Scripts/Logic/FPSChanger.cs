@@ -310,8 +310,11 @@ public class FPSChanger : MonoBehaviour{
 
 			//Begin logging
 			BeginLogging();
-		}
-	}
+        }else{
+            logger.StartPhase("freeroam");
+            BeginLogging();
+        }
+    }
 
 	void Update(){
 		if (doLog) {
@@ -396,8 +399,7 @@ public class FPSChanger : MonoBehaviour{
 				m_currFPSIndex++;
 				if(m_currFPSIndex == LearningWorldOrder.Count){
 					//Include test phase into logs
-                    if(!FreeRoam)
-                        logger.EndPhase();
+                    logger.EndPhase();
 
 					Application.Quit(); //Note: We stop here
                     print("Game ended idiot");

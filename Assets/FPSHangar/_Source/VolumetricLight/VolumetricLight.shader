@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 Shader "Lightbeam/Lightbeam" {
 	Properties {
 		_Color ("Color", Color) = (1,1,1,1)
@@ -35,7 +37,7 @@ Shader "Lightbeam/Lightbeam" {
 			v2f vert (appdata_tan v)
 			{
 			    v2f o;			    		
-			    o.pos = mul( UNITY_MATRIX_MVP, v.vertex );
+			    o.pos = UnityObjectToClipPos( v.vertex );
 								
 				// Generate the falloff texture UVs
 				TANGENT_SPACE_ROTATION;
