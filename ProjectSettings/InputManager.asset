@@ -9,13 +9,13 @@ InputManager:
     m_Name: Horizontal
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: left
-    positiveButton: right
+    negativeButton: 1
+    positiveButton: 3
     altNegativeButton: a
     altPositiveButton: d
-    gravity: 3
+    gravity: 10
     dead: 0.001
-    sensitivity: 3
+    sensitivity: 10
     snap: 1
     invert: 0
     type: 0
@@ -26,12 +26,12 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: up
+    positiveButton: 2
     altNegativeButton: 
-    altPositiveButton: '[5]'
-    gravity: 3
+    altPositiveButton: w
+    gravity: 10
     dead: 0.001
-    sensitivity: 3
+    sensitivity: 10
     snap: 1
     invert: 0
     type: 0
