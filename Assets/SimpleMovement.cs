@@ -23,16 +23,16 @@ public class SimpleMovement : MonoBehaviour
 
 	Vector3 move = Vector3.zero;
 
-	// Move character forward
+	// Calculate forward movement
 	float vert = Input.GetAxis("Vertical");
 	if (vert > 0f) // Only move forward.
 	    move += Time.deltaTime * vert * moveSpeed * cc.transform.forward;
 
-	// Lower character to ground
+	// Calculate lower to ground
 	if (!cc.isGrounded)
 	    move += Time.deltaTime * sinkSpeed * Vector3.down;
 
-	// Apply character movement
+	// Apply character translation
 	cc.Move(move);
 
 	// Rotate character
