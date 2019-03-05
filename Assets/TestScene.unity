@@ -357,6 +357,10 @@ PrefabInstance:
       propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2000000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 3}
+      propertyPath: field of view
+      value: 90
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 3}
     - {fileID: 8200000, guid: 8465f8b8c0005440a92ba77d99ebf196, type: 3}

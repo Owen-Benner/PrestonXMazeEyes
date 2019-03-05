@@ -11,6 +11,8 @@ public class SimpleMovement : MonoBehaviour
     public float rotSpeed;
     public float sinkSpeed;
 
+	public float hold;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,13 +22,18 @@ public class SimpleMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
 	Vector3 move = Vector3.zero;
 
-	// Calculate forward movement
-	float vert = Input.GetAxis("Vertical");
-	if (vert > 0f) // Only move forward.
-	    move += Time.deltaTime * vert * moveSpeed * cc.transform.forward;
+	// Calculate forward movement if free to move
+	if(hold <= 0f)
+	{
+		float vert = Input.GetAxis("Vertical");
+		if (vert > 0f) // Only move forward.
+	   		move += Time.deltaTime * vert * moveSpeed * cc.transform.forward;
+	}else
+	{
+		hold -= Time.deltaTime;
+	}
 
 	// Calculate lower to ground
 	if (!cc.isGrounded)
@@ -37,8 +44,10 @@ public class SimpleMovement : MonoBehaviour
 
 	// Rotate character
 	cc.transform.Rotate(Time.deltaTime * Input.GetAxis("Horizontal") * rotSpeed * Vector3.up);
-		
-
     }
+
+	void BeginHold(float length){
+		hold = length;
+	}
 }
 

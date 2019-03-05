@@ -7,6 +7,7 @@ TagManager:
   - Logic
   - Spawns
   - HangarLighting
+  - Gate
   layers:
   - Default
   - TransparentFX
