@@ -21,6 +21,10 @@ public class FacePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(GetComponent<MeshRenderer>().enabled){
+            transform.LookAt(player.transform);
+            transform.forward *= -1;
+        }
     }
+
 }

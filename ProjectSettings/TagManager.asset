@@ -8,6 +8,7 @@ TagManager:
   - Spawns
   - HangarLighting
   - Gate
+  - Sphere
   layers:
   - Default
   - TransparentFX
