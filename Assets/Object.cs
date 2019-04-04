@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Object : MonoBehaviour
+public class Quad : MonoBehaviour
 {
 
     public Material spr1;
@@ -11,52 +11,57 @@ public class Object : MonoBehaviour
     public Material spr4;
     public Material spr5;
     public Material spr6;
-    public Material sprNull;
 
     void Start()
     {
-        //this.Clear();
+        this.Sprite(0);
     }
 
-    void Clear()
+    void Sprite(int num)
     {
-        GetComponent<MeshRenderer>().enabled = false;
+        if(num == 0)
+        {
+            GetComponent<MeshRenderer>().enabled = false;
+        }
+        else if(num == 1)
+        {
+            GetComponent<MeshRenderer>().material = spr1;
+            GetComponent<MeshRenderer>().enabled = true;
+        }
+        else if(num == 2)
+        {
+            GetComponent<MeshRenderer>().material = spr2;
+            GetComponent<MeshRenderer>().enabled = true;
+        }
+        else if(num == 3)
+        {
+            GetComponent<MeshRenderer>().material = spr3;
+            GetComponent<MeshRenderer>().enabled = true;
+        }
+        else if(num == 4)
+        {
+            GetComponent<MeshRenderer>().material = spr4;
+            GetComponent<MeshRenderer>().enabled = true;
+        }
+        else if(num == 5)
+        {
+            GetComponent<MeshRenderer>().material = spr5;
+            GetComponent<MeshRenderer>().enabled = true;
+        }
+        else if(num == 6)
+        {
+            GetComponent<MeshRenderer>().material = spr6;
+            GetComponent<MeshRenderer>().enabled = true;
+        }
+        Debug.Log(name + ", Sprite: " + num);
     }
 
-    void Sprite1()
+    private void OnTriggerEnter(Collider other)
     {
-        GetComponent<MeshRenderer>().material = spr1;
-        GetComponent<MeshRenderer>().enabled = true;
-    }
-
-    void Sprite2()
-    {
-        GetComponent<MeshRenderer>().material = spr2;
-        GetComponent<MeshRenderer>().enabled = true;
-    }
-
-    void Sprite3()
-    {
-        GetComponent<MeshRenderer>().material = spr3;
-        GetComponent<MeshRenderer>().enabled = true;
-    }
-
-    void Sprite4()
-    {
-        GetComponent<MeshRenderer>().material = spr4;
-        GetComponent<MeshRenderer>().enabled = true;
-    }
-
-    void Sprite5()
-    {
-        GetComponent<MeshRenderer>().material = spr5;
-        GetComponent<MeshRenderer>().enabled = true;
-    }
-
-    void Sprite6()
-    {
-        GetComponent<MeshRenderer>().material = spr6;
-        GetComponent<MeshRenderer>().enabled = true;
+        if(other.CompareTag("Player"))
+        {
+            other.SendMessage("GiveReward", gameObject);
+        }
     }
 
 }

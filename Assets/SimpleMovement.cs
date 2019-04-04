@@ -13,18 +13,20 @@ public class SimpleMovement : MonoBehaviour
 
 	private float hold;
 
+	public Vector3 move;
+	public Vector3 rotate;
+
     // Start is called before the first frame update
     void Start()
     {
 	cc = GetComponent<CharacterController>();
+	move = Vector3.zero;
+	rotate = Vector3.zero;
     }
 
     // Update is called once per frame
     void Update()
     {
-	Vector3 move = Vector3.zero;
-	Vector3 rotate = Vector3.zero;
-
 	// Calculate movement if free to move
 	if(hold <= 0f)
 	{
@@ -32,8 +34,9 @@ public class SimpleMovement : MonoBehaviour
 		if (vert > 0f) // Only move forward.
 	   		move += Time.deltaTime * vert * moveSpeed * cc.transform.forward;
 
-		rotate = Time.deltaTime * Input.GetAxis("Horizontal") * rotSpeed * Vector3.up;
-	}else
+		rotate += Time.deltaTime * Input.GetAxis("Horizontal") * rotSpeed * Vector3.up;
+	}
+	else
 	{
 		hold -= Time.deltaTime;
 	}
@@ -47,10 +50,29 @@ public class SimpleMovement : MonoBehaviour
 
 	// Apply character rotation
 	cc.transform.Rotate(rotate);
+
+	// Reset vectors
+	move = Vector3.zero;
+	rotate = Vector3.zero;
     }
 
-	void BeginHold(float length){
+	public void BeginHold(float length)
+	{
 		hold = length;
+	}
+
+	public void EndHold()
+	{
+		hold = 0;
+	}
+
+	public bool IsHolding()
+	{
+		if(hold <= 0)
+		{
+			return false;
+		}
+		return true;
 	}
 }
 

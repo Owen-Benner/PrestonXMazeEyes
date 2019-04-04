@@ -1,8 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using System;
 using System.IO;
+using UnityEngine;
 
 public class FileReader : MonoBehaviour
 {
@@ -18,9 +18,9 @@ public class FileReader : MonoBehaviour
     private string speedStr;
     private string fovStr;
     private string radiusStr;
+    private string visibleStr;
     private string selectStr;
-    private string turnStr;
-    private string slideStr;
+    private string returnStr;
     private string totalStr;
     private string startStr;
 
@@ -41,7 +41,6 @@ public class FileReader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         player = GameObject.FindWithTag("Player");
         demon = player.GetComponent<Demon>();
         writer = GameObject.Find("FileWriter").GetComponent<FileWriter>();
@@ -58,9 +57,9 @@ public class FileReader : MonoBehaviour
             speedStr = reader.ReadLine();
             fovStr = reader.ReadLine();
             radiusStr = reader.ReadLine();
+            visibleStr = reader.ReadLine();
             selectStr = reader.ReadLine();
-            turnStr = reader.ReadLine();
-            slideStr = reader.ReadLine();
+            returnStr = reader.ReadLine();
             totalStr = reader.ReadLine();
             startStr = reader.ReadLine();
 
@@ -73,7 +72,9 @@ public class FileReader : MonoBehaviour
 
             reader.Close();
 
-        }catch(Exception e){
+        }
+        catch(Exception e)
+        {
 			Debug.LogError("Error reading file!!");
 			Debug.LogError(e);
 			Application.Quit();
@@ -96,16 +97,20 @@ public class FileReader : MonoBehaviour
                 sprite.GetComponent<SphereCollider>().radius = float.Parse(radiusStr) / sprite.transform.localScale.x;
             }
 
+            demon.visibleTime = float.Parse(visibleStr);
             demon.selectTime = float.Parse(selectStr);
-            demon.turnTime = float.Parse(turnStr);
-            demon.slideTime = float.Parse(slideStr);
+            demon.returnTime = float.Parse(returnStr);
             demon.totalTime = float.Parse(totalStr);
 
-            if(int.Parse(startStr) == 1){
-                player.transform.position = new Vector3(184.2314f, 3f, 255f);
+            demon.direction = int.Parse(startStr);
+            if(int.Parse(startStr) == 1)
+            {
+                player.transform.position = new Vector3(demon.westXPos, demon.yPos, demon.zPos);
                 player.transform.Rotate(0f, 0f, 0f);
-            }else if(int.Parse(startStr) == 2){
-                player.transform.position = new Vector3(304.2314f, 3f, 255f);
+            }
+            else if(int.Parse(startStr) == 2)
+            {
+                player.transform.position = new Vector3(demon.eastXPos, demon.yPos, demon.zPos);
                 player.transform.Rotate(0f, 180f, 0f);
             }
 
@@ -125,31 +130,38 @@ public class FileReader : MonoBehaviour
             demon.rightObjects = new int[rightObjArr.Length];
             demon.rightRewards = new int[rightRewArr.Length];
 
-            for(int i = 0; i < contextArr.Length; i++){
+            for(int i = 0; i < contextArr.Length; i++)
+            {
                 demon.contexts[i] = int.Parse(contextArr[i]);
             }
-            for(int i = 0; i < holdArr.Length; i++){
+            for(int i = 0; i < holdArr.Length; i++)
+            {
                 demon.holds[i] = float.Parse(holdArr[i]);
             }
-            for(int i = 0; i < leftObjArr.Length; i++){
+            for(int i = 0; i < leftObjArr.Length; i++)
+            {
                 demon.leftObjects[i] = int.Parse(leftObjArr[i]);
             }
-            for(int i = 0; i < leftRewArr.Length; i++){
+            for(int i = 0; i < leftRewArr.Length; i++)
+            {
                 demon.leftRewards[i] = int.Parse(leftRewArr[i]);
             }
-            for(int i = 0; i < rightObjArr.Length; i++){
+            for(int i = 0; i < rightObjArr.Length; i++)
+            {
                 demon.rightObjects[i] = int.Parse(rightObjArr[i]);
             }
-            for(int i = 0; i < rightRewArr.Length; i++){
-                demon.rightObjects[i] = int.Parse(rightRewArr[i]);
+            for(int i = 0; i < rightRewArr.Length; i++)
+            {
+                demon.rightRewards[i] = int.Parse(rightRewArr[i]);
             }
 
-        }catch(Exception e){
+        }
+        catch(Exception e)
+        {
 			Debug.LogError("Error parsing file!!");
 			Debug.LogError(e);
 			Application.Quit();
 		}
-
     }
 
 }

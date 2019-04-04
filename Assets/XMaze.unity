@@ -336,6 +336,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: ee592775ed66b3af0a297596c6403fdc, type: 2}
+    - target: {fileID: 3815554527210731977, guid: ee322d6ed88a798228cf5337845b51ab,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3815554527210731977, guid: ee322d6ed88a798228cf5337845b51ab,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee322d6ed88a798228cf5337845b51ab, type: 3}
 --- !u!1 &436082430 stripped
@@ -362,7 +372,6 @@ MonoBehaviour:
   spr4: {fileID: 2100000, guid: ee592775ed66b3af0a297596c6403fdc, type: 2}
   spr5: {fileID: 2100000, guid: 77b919058df6f66e2997f0483256867f, type: 2}
   spr6: {fileID: 2100000, guid: 11fcb298b524464f1bc9dd9cc2f660fb, type: 2}
-  sprNull: {fileID: 2100000, guid: fcfc17a4c704b947ca1e819bac62d46a, type: 2}
 --- !u!1001 &552705222
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -473,15 +482,15 @@ RectTransform:
   m_GameObject: {fileID: 565628725}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 812160667}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -25}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 320, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &565628727
 MonoBehaviour:
@@ -505,7 +514,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 27
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -661,6 +670,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a967313e38b1ed80cbf5d9434c28eb1c, type: 2}
+    - target: {fileID: 3815554527210731977, guid: ee322d6ed88a798228cf5337845b51ab,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3815554527210731977, guid: ee322d6ed88a798228cf5337845b51ab,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee322d6ed88a798228cf5337845b51ab, type: 3}
 --- !u!1 &638385903 stripped
@@ -687,7 +706,6 @@ MonoBehaviour:
   spr4: {fileID: 2100000, guid: ee592775ed66b3af0a297596c6403fdc, type: 2}
   spr5: {fileID: 2100000, guid: 77b919058df6f66e2997f0483256867f, type: 2}
   spr6: {fileID: 2100000, guid: 11fcb298b524464f1bc9dd9cc2f660fb, type: 2}
-  sprNull: {fileID: 2100000, guid: fcfc17a4c704b947ca1e819bac62d46a, type: 2}
 --- !u!1 &812160663
 GameObject:
   m_ObjectHideFlags: 0
@@ -778,8 +796,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 565628726}
   - {fileID: 861987968}
+  - {fileID: 565628726}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -835,15 +853,15 @@ RectTransform:
   m_GameObject: {fileID: 861987967}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 812160667}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -25}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 640, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &861987969
 MonoBehaviour:
@@ -867,11 +885,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 27
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 50
+    m_MaxSize: 54
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -974,6 +992,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3815554527210731977, guid: ee322d6ed88a798228cf5337845b51ab,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3815554527210731977, guid: ee322d6ed88a798228cf5337845b51ab,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee322d6ed88a798228cf5337845b51ab, type: 3}
 --- !u!1 &1082444512 stripped
@@ -1000,7 +1028,6 @@ MonoBehaviour:
   spr4: {fileID: 2100000, guid: ee592775ed66b3af0a297596c6403fdc, type: 2}
   spr5: {fileID: 2100000, guid: 77b919058df6f66e2997f0483256867f, type: 2}
   spr6: {fileID: 2100000, guid: 11fcb298b524464f1bc9dd9cc2f660fb, type: 2}
-  sprNull: {fileID: 2100000, guid: fcfc17a4c704b947ca1e819bac62d46a, type: 2}
 --- !u!1 &1139413167
 GameObject:
   m_ObjectHideFlags: 0
@@ -1198,6 +1225,8 @@ MonoBehaviour:
   moveSpeed: 10
   rotSpeed: 100
   sinkSpeed: 5
+  move: {x: 0, y: 0, z: 0}
+  rotate: {x: 0, y: 0, z: 0}
 --- !u!114 &1202369855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1210,24 +1239,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716db538a38df8bbbb5512023308631b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doneMsg: 'Final Score: '
   mode: 0
+  visibleTime: 0
   selectTime: 0
-  turnTime: 0
-  slideTime: 0
+  returnTime: 0
   totalTime: 0
-  startPos: 0
+  direction: 0
+  trialNum: 0
   contexts: 
   holds: []
   leftObjects: 
   leftRewards: 
   rightObjects: 
   rightRewards: 
+  westXPos: 184.2314
+  eastXPos: 304.2314
+  yPos: 3
+  zPos: 255
+  east: 90
+  west: 270
+  holdTurnRate: 90
+  returnRate: 180
+  returnSpeedX: 20
+  returnSpeedZ: 20
+  rewardText: {fileID: 861987969}
+  scoreText: {fileID: 565628727}
+  segment: 0
   contextN: {fileID: 1139413167}
   contextS: {fileID: 214134308}
   objectNE: {fileID: 1082444512}
   objectSE: {fileID: 5520277279363209589}
   objectSW: {fileID: 638385903}
   objectNW: {fileID: 436082430}
+  context0: Gray
+  context1: Wood
+  context2: Brick
 --- !u!1 &1828425612
 GameObject:
   m_ObjectHideFlags: 0
@@ -1653,6 +1700,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ad21929cc437227528978a23e650a12c, type: 2}
+    - target: {fileID: 3815554527210731977, guid: ee322d6ed88a798228cf5337845b51ab,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3815554527210731977, guid: ee322d6ed88a798228cf5337845b51ab,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee322d6ed88a798228cf5337845b51ab, type: 3}
 --- !u!1 &5520277279363209589 stripped
@@ -1679,4 +1736,3 @@ MonoBehaviour:
   spr4: {fileID: 2100000, guid: ee592775ed66b3af0a297596c6403fdc, type: 2}
   spr5: {fileID: 2100000, guid: 77b919058df6f66e2997f0483256867f, type: 2}
   spr6: {fileID: 2100000, guid: 11fcb298b524464f1bc9dd9cc2f660fb, type: 2}
-  sprNull: {fileID: 2100000, guid: fcfc17a4c704b947ca1e819bac62d46a, type: 2}
