@@ -15,6 +15,7 @@ public class FileReader : MonoBehaviour
 
     private string modeStr;
     private string partStr;
+    private string runStr;
     private string speedStr;
     private string fovStr;
     private string radiusStr;
@@ -38,8 +39,8 @@ public class FileReader : MonoBehaviour
     private string[] rightObjArr;
     private string[] rightRewArr;
 
-    // Start is called before the first frame update
-    void Start()
+    // Awake is called when the script instance is being loaded
+    void Awake()
     {
         player = GameObject.FindWithTag("Player");
         demon = player.GetComponent<Demon>();
@@ -49,11 +50,11 @@ public class FileReader : MonoBehaviour
         
         try
         {
-
             StreamReader reader = new StreamReader("Config.txt");
 
             modeStr = reader.ReadLine();
             partStr = reader.ReadLine();
+            runStr = reader.ReadLine();
             speedStr = reader.ReadLine();
             fovStr = reader.ReadLine();
             radiusStr = reader.ReadLine();
@@ -71,7 +72,6 @@ public class FileReader : MonoBehaviour
             rightRewStr = reader.ReadLine();
 
             reader.Close();
-
         }
         catch(Exception e)
         {
@@ -82,9 +82,9 @@ public class FileReader : MonoBehaviour
 
         try
         {
-
             demon.mode = int.Parse(modeStr);
             writer.partCode = partStr;
+            writer.runNum = int.Parse(runStr);
             player.GetComponent<SimpleMovement>().moveSpeed = float.Parse(speedStr);
 
             foreach(Camera c in player.GetComponentsInChildren<Camera>())
@@ -154,7 +154,6 @@ public class FileReader : MonoBehaviour
             {
                 demon.rightRewards[i] = int.Parse(rightRewArr[i]);
             }
-
         }
         catch(Exception e)
         {

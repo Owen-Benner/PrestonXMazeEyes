@@ -8,6 +8,7 @@ public class Demon : MonoBehaviour
 {
 
     public string doneMsg = "Final Score: ";
+    public string preRew = "+";
 
     public int mode;
 
@@ -51,7 +52,6 @@ public class Demon : MonoBehaviour
         HoldA,
         Selection,
         Reward,
-        Return,
         HoldB,
     };
 
@@ -64,6 +64,13 @@ public class Demon : MonoBehaviour
     public GameObject objectSE;
     public GameObject objectSW;
     public GameObject objectNW;
+
+    public GameObject goalNE;
+    public GameObject goalSE;
+    public GameObject goalSW;
+    public GameObject goalNW;
+
+    public FileWriter writer;
 
     public string context0 = "Gray";
     public string context1 = "Wood";
@@ -82,7 +89,10 @@ public class Demon : MonoBehaviour
         rewardText.enabled = false;
         scoreText.text = 0.ToString();
         trialNum = 0;
-        SetContexts();
+        if(mode == 2)
+        {
+            SetContexts();
+        }
     }
 
     // Update is called once per frame
@@ -93,6 +103,7 @@ public class Demon : MonoBehaviour
             if(direction == 1 && transform.position.x >= eastXPos)
             {
                 segment = segments.HoldA;
+                writer.WriteSegment();
                 move.BeginHold(holds[trialNum]);
                 transform.position = new Vector3(eastXPos, transform.position.y, zPos);
                 ClearContexts();
@@ -100,6 +111,7 @@ public class Demon : MonoBehaviour
             else if(direction == 2 && transform.position.x <= westXPos)
             {
                 segment = segments.HoldA;
+                writer.WriteSegment();
                 move.BeginHold(holds[trialNum]);
                 transform.position = new Vector3(westXPos, transform.position.y, zPos);
                 ClearContexts();
@@ -113,17 +125,32 @@ public class Demon : MonoBehaviour
             if(!move.IsHolding())
             {
                 segment = segments.Selection;
+                writer.WriteSegment();
                 selectStart = Time.time;
                 vis = true;
                 if(direction == 1)
                 {
-                    objectNE.SendMessage("Sprite", leftObjects[trialNum]);
-                    objectSE.SendMessage("Sprite", rightObjects[trialNum]);
+                    if(mode == 2){
+                        objectNE.SendMessage("Sprite", leftObjects[trialNum]);
+                        objectSE.SendMessage("Sprite", rightObjects[trialNum]);
+                    }
+                    else
+                    {
+                        goalNE.SendMessage("Render", leftObjects[trialNum]);
+                        goalSE.SendMessage("Render", rightObjects[trialNum]);
+                    }
                 }
                 else if(direction == 2)
                 {
-                    objectSW.SendMessage("Sprite", leftObjects[trialNum]);
-                    objectNW.SendMessage("Sprite", rightObjects[trialNum]);
+                    if(mode == 2){
+                        objectSW.SendMessage("Sprite", leftObjects[trialNum]);
+                        objectNW.SendMessage("Sprite", rightObjects[trialNum]);
+                    }
+                    else
+                    {
+                        goalSW.SendMessage("Render", leftObjects[trialNum]);
+                        goalNW.SendMessage("Render", rightObjects[trialNum]);
+                    }
                 }
                 else{Debug.Log("Direction machine broke.");}
             }
@@ -193,6 +220,7 @@ public class Demon : MonoBehaviour
 
             if(!move.IsHolding()){
                 segment = segments.HoldB;
+                writer.WriteSegment();
                 move.BeginHold(999f);
                 rewardText.enabled = false;
             }
@@ -211,10 +239,11 @@ public class Demon : MonoBehaviour
                 move.EndHold();
                 segment = segments.Hallway;
                 trialNum++;
+                writer.WriteSegment();
                 try{
                     SetContexts();
                 }
-                catch(Exception e)
+                catch
                 {
                     //Debug.Log("Final Score: " + score);
                     Application.Quit();
@@ -228,27 +257,60 @@ public class Demon : MonoBehaviour
         if(segment == segments.Selection)
         {
             int reward = 0;
-            if(obj == objectNE)
+            int select = 0;
+            if(mode == 2)
             {
-                reward = leftRewards[trialNum];
+                if(obj == objectNE)
+                {
+                    reward = leftRewards[trialNum];
+                    select = 1;
+                }
+                else if(obj == objectSE)
+                {
+                    reward = rightRewards[trialNum];
+                    select = 2;
+                }
+                else if(obj == objectSW)
+                {
+                    reward = leftRewards[trialNum];
+                    select = 1;
+                }
+                else if(obj == objectNW)
+                {
+                    reward = rightRewards[trialNum];
+                    select = 2;
+                }
             }
-            else if(obj == objectSE)
+            else
             {
-                reward = rightRewards[trialNum];
-            }
-            else if(obj == objectSW)
-            {
-                reward = leftRewards[trialNum];
-            }
-            else if(obj == objectNW)
-            {
-                reward = rightRewards[trialNum];
+                if(obj == objectNE)
+                {
+                    reward = leftObjects[trialNum];
+                    select = 1;
+                }
+                else if(obj == objectSE)
+                {
+                    reward = rightObjects[trialNum];
+                    select = 2;
+                }
+                else if(obj == objectSW)
+                {
+                    reward = leftObjects[trialNum];
+                    select = 1;
+                }
+                else if(obj == objectNW)
+                {
+                    reward = rightObjects[trialNum];
+                    select = 2;
+                }
             }
 
             segment = segments.Reward;
-            rewardText.text = reward.ToString();
+            writer.WriteSegment();
+            rewardText.text = preRew + reward.ToString();
             rewardText.enabled = true;
             score += reward;
+            writer.WriteSelect(select, reward, score);
             scoreText.text = score.ToString();
             move.BeginHold(returnTime);
 
@@ -267,10 +329,17 @@ public class Demon : MonoBehaviour
     void ClearVisibility()
     {
         int zero = 0;
+
         objectNE.SendMessage("Sprite", zero);
         objectSE.SendMessage("Sprite", zero);
         objectSW.SendMessage("Sprite", zero);
         objectNW.SendMessage("Sprite", zero);
+
+        goalNE.SendMessage("Render", zero);
+        goalSE.SendMessage("Render", zero);
+        goalSW.SendMessage("Render", zero);
+        goalNW.SendMessage("Render", zero);
+
         vis = false;
     }
 
@@ -323,6 +392,8 @@ public class Demon : MonoBehaviour
 
     void SetContexts()
     {
+        if(mode != 2){return;}
+
         if(contexts[trialNum] == 1)
         {
             contextN.SendMessage(context1);
