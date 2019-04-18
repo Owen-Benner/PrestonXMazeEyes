@@ -76,6 +76,7 @@ public class Demon : MonoBehaviour
     public string context1 = "Wood";
     public string context2 = "Brick";
 
+    private float choiceStart;
     private float selectStart;
     private bool vis;
 
@@ -103,6 +104,7 @@ public class Demon : MonoBehaviour
             if(direction == 1 && transform.position.x >= eastXPos)
             {
                 segment = segments.HoldA;
+                choiceStart = Time.time;
                 writer.WriteSegment();
                 move.BeginHold(holds[trialNum]);
                 transform.position = new Vector3(eastXPos, transform.position.y, zPos);
@@ -111,6 +113,7 @@ public class Demon : MonoBehaviour
             else if(direction == 2 && transform.position.x <= westXPos)
             {
                 segment = segments.HoldA;
+                choiceStart = Time.time;
                 writer.WriteSegment();
                 move.BeginHold(holds[trialNum]);
                 transform.position = new Vector3(westXPos, transform.position.y, zPos);
@@ -125,8 +128,8 @@ public class Demon : MonoBehaviour
             if(!move.IsHolding())
             {
                 segment = segments.Selection;
-                writer.WriteSegment();
                 selectStart = Time.time;
+                writer.WriteSegment();
                 vis = true;
                 if(direction == 1)
                 {
@@ -234,7 +237,7 @@ public class Demon : MonoBehaviour
                 rewardText.enabled = true;
                 scoreText.enabled = false;
             }
-            if(Time.time - selectStart >= totalTime)
+            if(Time.time - choiceStart >= totalTime)
             {
                 move.EndHold();
                 segment = segments.Hallway;

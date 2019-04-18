@@ -16,9 +16,9 @@ public class FileWriter : MonoBehaviour
 
     public int frameFreq = 10;
 
-    public string format0 = "Frame frameNum: distHoriz distDiag pose time xPos zPos";
-    public string format1 = "Selection trialNum: chamber reward score";
-    public string format2 = "Segment: distHoriz distDiag pose time xPos zPos trialNum trialTime newSegment";
+    public string format0 = "%Frame frameNum: distHoriz distDiag pose time xPos zPos";
+    public string format1 = "%Selection trialNum: chamber reward score";
+    public string format2 = "%Segment: distHoriz distDiag pose time xPos zPos trialNum trialTime newSegment";
     public string partCode;
 
     private string fileName;
@@ -31,29 +31,11 @@ public class FileWriter : MonoBehaviour
     private float trialStart;
 
     StreamReader lastRunReader;
-    StreamWriter lastRunWriter;
     StreamWriter writer;
 
     // Start is called before the first frame update
     void Start()
     {
-        try
-        {
-            lastRunReader = new StreamReader("LastRun.txt");
-            string lastRun = lastRunReader.ReadLine();
-
-            if(int.Parse(lastRun) == runNum)
-            {
-                Debug.LogError("Repeated run number! Update Config.txt.\n"
-                    + "To overwrite last log, delete LastRun.txt. Then run again.");
-                Application.Quit();
-                return;
-            }
-
-            lastRunReader.Close();
-        }
-        catch{}
-
         playPos = player.GetComponent<Transform>();
         demon = player.GetComponent<Demon>();
 
@@ -68,6 +50,15 @@ public class FileWriter : MonoBehaviour
         }
         fileName += "_run" + runNum + ".xml";
 
+        try
+        {
+            lastRunReader = new StreamReader(fileName);
+            Debug.LogError("Repeated log filename! Update Config.txt or remove last log file from directory.");
+            Application.Quit();
+            return;
+        }
+        catch{}
+
         writer = new StreamWriter(fileName);
         framePer = 1f / (float) frameFreq;
 
@@ -76,10 +67,6 @@ public class FileWriter : MonoBehaviour
         writer.WriteLine(format0);
         writer.WriteLine(format1);
         writer.WriteLine(format2);
-
-        lastRunWriter = new StreamWriter("LastRun.txt");
-        lastRunWriter.WriteLine(runNum);
-        lastRunWriter.Close();
 
         //WriteFrame();
         lastFrame = Time.time;
