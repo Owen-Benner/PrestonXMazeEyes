@@ -5,7 +5,7 @@ using UnityEngine;
 public class FacePlayer : MonoBehaviour
 {
 
-    public GameObject player;
+    public Transform camera;
 
     private float distX;
     private float distZ;
@@ -15,14 +15,14 @@ public class FacePlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindWithTag("Player");
+        camera = GameObject.FindWithTag("Player").transform.GetChild(1);
     }
 
     // Update is called once per frame
     void Update()
     {
         if(GetComponent<MeshRenderer>().enabled){
-            transform.LookAt(player.transform);
+            transform.LookAt(camera);
             transform.forward *= -1;
         }
     }

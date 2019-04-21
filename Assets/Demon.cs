@@ -46,6 +46,8 @@ public class Demon : MonoBehaviour
 
     SimpleMovement move;
 
+    public float endTimer = 5f;
+
     public enum segments
     {
         Hallway,
@@ -53,6 +55,7 @@ public class Demon : MonoBehaviour
         Selection,
         Reward,
         HoldB,
+        EndRun,
     };
 
     public segments segment;
@@ -239,19 +242,32 @@ public class Demon : MonoBehaviour
             }
             if(Time.time - choiceStart >= totalTime)
             {
-                move.EndHold();
-                segment = segments.Hallway;
-                trialNum++;
-                writer.WriteSegment();
-                try{
+                try
+                {
+                    trialNum++;
                     SetContexts();
+                    //Debug.Log("Contexts set");
+                    move.EndHold();
+                    segment = segments.Hallway;
+                    writer.WriteSegment();
                 }
                 catch
                 {
-                    //Debug.Log("Final Score: " + score);
-                    Application.Quit();
+                    //Debug.Log("Caught");
+                    segment = segments.EndRun;
+                    writer.WriteSegment();
                 }
             }
+        }
+
+        else if(segment == segments.EndRun)
+        {
+            if(endTimer <= 0)
+            {
+                Application.Quit();
+            }
+            endTimer -= Time.deltaTime;
+            //Debug.Log("Quitting in: " + endTimer.ToString());
         }
     }
 
@@ -395,7 +411,10 @@ public class Demon : MonoBehaviour
 
     void SetContexts()
     {
-        if(mode != 2){return;}
+        if(mode != 2){
+            contexts[trialNum] = 0;
+            return;
+        }
 
         if(contexts[trialNum] == 1)
         {

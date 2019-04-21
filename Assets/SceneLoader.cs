@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
 
-    AsyncOperation async;
+    private AsyncOperation async;
+    private bool counting = false;
+    public float countDown = 4f;
 
     // Start is called before the first frame update
     void Start()
@@ -18,9 +20,18 @@ public class SceneLoader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(counting)
+        {
+            countDown -= Time.deltaTime;
+            if(countDown <= 0)
+            {
+                async.allowSceneActivation = true;
+            }
+        }
+
         if(Input.GetKey("5"))
         {
-            async.allowSceneActivation = true;
+            counting = true;
         }
     }
 }
