@@ -74,6 +74,7 @@ public class Demon : MonoBehaviour
     public GameObject goalNW;
 
     public FileWriter writer;
+    public FileReader reader;
 
     public string context0 = "Gray";
     public string context1 = "Wood";
@@ -88,6 +89,11 @@ public class Demon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        reader = GameObject.Find("FileReader").GetComponent<FileReader>();
+        reader.XMazeInit();
+        writer = GameObject.Find("FileWriter").GetComponent<FileWriter>();
+        writer.XMazeInit();
+
         segment = segments.Hallway;
         move = GetComponent<SimpleMovement>();
         rewardText.enabled = false;

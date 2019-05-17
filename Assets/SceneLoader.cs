@@ -10,11 +10,15 @@ public class SceneLoader : MonoBehaviour
     private bool counting = false;
     public float countDown = 4f;
 
+    private FileWriter writer;
+
     // Start is called before the first frame update
     void Start()
     {
         async = SceneManager.LoadSceneAsync(1);
         async.allowSceneActivation = false;
+
+        writer = GameObject.Find("FileWriter").GetComponent<FileWriter>();
     }
 
     // Update is called once per frame
@@ -32,6 +36,7 @@ public class SceneLoader : MonoBehaviour
         if(Input.GetKey("5"))
         {
             counting = true;
+            writer.StartWriting();
         }
     }
 }

@@ -13,6 +13,9 @@ public class FileReader : MonoBehaviour
 
     public GameObject[] sprites;
 
+    private int mode;
+    private int direction;
+
     private string modeStr;
     private string partStr;
     private string runStr;
@@ -42,12 +45,8 @@ public class FileReader : MonoBehaviour
     // Awake is called when the script instance is being loaded
     void Awake()
     {
-        player = GameObject.FindWithTag("Player");
-        demon = player.GetComponent<Demon>();
         writer = GameObject.Find("FileWriter").GetComponent<FileWriter>();
 
-        sprites = GameObject.FindGameObjectsWithTag("Sphere");
-        
         try
         {
             StreamReader reader = new StreamReader("Config.txt");
@@ -82,9 +81,32 @@ public class FileReader : MonoBehaviour
 
         try
         {
-            demon.mode = int.Parse(modeStr);
+            mode = int.Parse(modeStr);
+            writer.mode = mode;
             writer.partCode = partStr;
             writer.runNum = int.Parse(runStr);
+            direction = int.Parse(startStr);
+            writer.direction = direction;
+        }
+        catch(Exception e)
+        {
+			Debug.LogError("Error parsing file!!");
+			Debug.LogError(e);
+			Application.Quit();
+		}
+
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public void XMazeInit()
+    {
+        player = GameObject.FindWithTag("Player");
+        demon = player.GetComponent<Demon>();
+        sprites = GameObject.FindGameObjectsWithTag("Sphere");
+
+        try
+        {
+            demon.mode = mode;
             player.GetComponent<SimpleMovement>().moveSpeed = float.Parse(speedStr);
 
             foreach(Camera c in player.GetComponentsInChildren<Camera>())
@@ -102,7 +124,7 @@ public class FileReader : MonoBehaviour
             demon.returnTime = float.Parse(returnStr);
             demon.totalTime = float.Parse(totalStr);
 
-            demon.direction = int.Parse(startStr);
+            demon.direction = direction;
             if(int.Parse(startStr) == 1)
             {
                 player.transform.position = new Vector3(demon.westXPos, demon.yPos, demon.zPos);
