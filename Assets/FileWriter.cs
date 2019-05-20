@@ -16,7 +16,7 @@ public class FileWriter : MonoBehaviour
 
     public int frameFreq = 10;
 
-    public string format0 = "%Frame frameNum: distHoriz distDiag pose time xPos zPos";
+    public string format0 = "%Frame frameNum: distHoriz distDiag pose time xPos zPos xEyePos yEyePos";
     public string format1 = "%Selection trialNum: chamber reward score";
     public string format2 = "%Segment: distHoriz distDiag pose time xPos zPos trialNum trialTime newSegment";
     public string partCode;
@@ -110,6 +110,8 @@ public class FileWriter : MonoBehaviour
 
     void WriteFrame()
     {
+        GazePoint gp = TobiiAPI.GetGazePoint();
+
         if(XMazeLoaded)
         {
             float distHori;
@@ -126,18 +128,33 @@ public class FileWriter : MonoBehaviour
                 distDiag = Mathf.Sqrt(distHori * distHori + Mathf.Pow(playPos.position.z - demon.zPos, 2f));
             }
 
-            writer.WriteLine("Frame "
-            + frame.ToString() + ":" + spc
-            + string.Format("{0:N3}", distHori) + spc + string.Format("{0:N3}", distDiag) + spc + string.Format("{0:N3}", playPos.eulerAngles.y)
+            writer.Write("Frame "
+                + frame.ToString() + ":" + spc + string.Format("{0:N3}", distHori) + spc + string.Format("{0:N3}", distDiag) + spc + string.Format("{0:N3}", playPos.eulerAngles.y)
                 + spc + string.Format("{0:N3}", Time.time - startTime) + spc + string.Format("{0:N3}", playPos.position.x) + spc + string.Format("{0:N3}", playPos.position.z));
+            // Add gaze data here
+            if(gp.IsValid)
+            {
+                writer.WriteLine(spc + string.Format("{0:N3}", gp.Screen.x) + spc + string.Format("{0:N3}", gp.Screen.y));
+            }
+            else
+            {
+                writer.WriteLine(spc + "invalid" + spc + "invalid");
+            }
         }
         else
         {
             writer.WriteLine("Frame "
-            + frame.ToString() + ":" + spc
-            + string.Format("{0:N3}", 0f) + spc + string.Format("{0:N3}", 0f) + spc + string.Format("{0:N3}", 0f)
+                + frame.ToString() + ":" + spc + string.Format("{0:N3}", 0f) + spc + string.Format("{0:N3}", 0f) + spc + string.Format("{0:N3}", 0f)
                 + spc + string.Format("{0:N3}", Time.time - startTime) + spc + string.Format("{0:N3}", 0f) + spc + string.Format("{0:N3}", 0f));
             // Add gaze data here
+            if (gp.IsValid)
+            {
+                writer.WriteLine(spc + string.Format("{0:N3}", gp.Screen) + spc + string.Format("{0:N3}", gp.Screen.y));
+            }
+            else
+            {
+                writer.WriteLine(spc + "invalid" + spc + "invalid");
+            }
         }
 
         frame++;

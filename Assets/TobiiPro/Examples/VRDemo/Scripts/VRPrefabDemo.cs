@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// Copyright © 2018 Tobii AB. All rights reserved.
+// Copyright © 2019 Tobii Pro AB. All rights reserved.
 //-----------------------------------------------------------------------
 
 using UnityEngine;
@@ -34,6 +34,8 @@ namespace Tobii.Research.Unity.Examples
             holder.parent = etOrigin;
             holder.localPosition = new Vector3(0, -1.35f, 3);
             holder.localRotation = Quaternion.Euler(25, 0, 0);
+
+            StartCoroutine(VRUtility.LoadOpenVR());
         }
 
         private void Update()

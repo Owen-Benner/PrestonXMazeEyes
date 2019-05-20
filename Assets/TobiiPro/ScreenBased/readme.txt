@@ -1,5 +1,5 @@
 ﻿------------------------------------------------------------------------------
- Copyright © 2018 Tobii AB. All rights reserved.
+ Copyright © 2019 Tobii Pro AB. All rights reserved.
 ------------------------------------------------------------------------------
 
 The following describes how to create a simple scene with calibration, gaze

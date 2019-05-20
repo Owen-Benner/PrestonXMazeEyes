@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// Copyright © 2017 Tobii AB. All rights reserved.
+// Copyright © 2019 Tobii Pro AB. All rights reserved.
 //-----------------------------------------------------------------------
 
 using UnityEngine;
@@ -82,6 +82,8 @@ namespace Tobii.Research.Unity.Examples
             _highlightInfo = new ActiveObject();
             var textRenderer = _textCalibration.GetComponent<Renderer>();
             textRenderer.sortingOrder -= 1;
+
+            StartCoroutine(VRUtility.LoadOpenVR());
         }
 
         private void HandleF1Pressed()

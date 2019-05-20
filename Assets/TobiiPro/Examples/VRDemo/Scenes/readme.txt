@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
- Copyright © 2018 Tobii AB. All rights reserved.
+ Copyright © 2019 Tobii Pro AB. All rights reserved.
 ------------------------------------------------------------------------------
 
 Note: When starting either of these scenes in the unity editor for the first
