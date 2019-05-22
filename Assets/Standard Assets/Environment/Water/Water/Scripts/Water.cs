@@ -101,13 +101,14 @@ namespace UnityStandardAssets.Water
 
                 reflectionCamera.cullingMask = ~(1 << 4) & reflectLayers.value; // never render water layer
                 reflectionCamera.targetTexture = m_ReflectionTexture;
-                GL.invertCulling = true;
+                bool oldCulling = GL.invertCulling;
+                GL.invertCulling = !oldCulling;
                 reflectionCamera.transform.position = newpos;
                 Vector3 euler = cam.transform.eulerAngles;
                 reflectionCamera.transform.eulerAngles = new Vector3(-euler.x, euler.y, euler.z);
                 reflectionCamera.Render();
                 reflectionCamera.transform.position = oldpos;
-                GL.invertCulling = false;
+                GL.invertCulling = oldCulling;
                 GetComponent<Renderer>().sharedMaterial.SetTexture("_ReflectionTex", m_ReflectionTexture);
             }
 
@@ -335,7 +336,11 @@ namespace UnityStandardAssets.Water
 
         WaterMode FindHardwareWaterSupport()
         {
+#if UNITY_5_5_OR_NEWER
+            if (!GetComponent<Renderer>())
+#else
             if (!SystemInfo.supportsRenderTextures || !GetComponent<Renderer>())
+#endif
             {
                 return WaterMode.Simple;
             }
@@ -373,19 +378,19 @@ namespace UnityStandardAssets.Water
         static void CalculateReflectionMatrix(ref Matrix4x4 reflectionMat, Vector4 plane)
         {
             reflectionMat.m00 = (1F - 2F * plane[0] * plane[0]);
-            reflectionMat.m01 = (- 2F * plane[0] * plane[1]);
-            reflectionMat.m02 = (- 2F * plane[0] * plane[2]);
-            reflectionMat.m03 = (- 2F * plane[3] * plane[0]);
+            reflectionMat.m01 = (-2F * plane[0] * plane[1]);
+            reflectionMat.m02 = (-2F * plane[0] * plane[2]);
+            reflectionMat.m03 = (-2F * plane[3] * plane[0]);
 
-            reflectionMat.m10 = (- 2F * plane[1] * plane[0]);
+            reflectionMat.m10 = (-2F * plane[1] * plane[0]);
             reflectionMat.m11 = (1F - 2F * plane[1] * plane[1]);
-            reflectionMat.m12 = (- 2F * plane[1] * plane[2]);
-            reflectionMat.m13 = (- 2F * plane[3] * plane[1]);
+            reflectionMat.m12 = (-2F * plane[1] * plane[2]);
+            reflectionMat.m13 = (-2F * plane[3] * plane[1]);
 
-            reflectionMat.m20 = (- 2F * plane[2] * plane[0]);
-            reflectionMat.m21 = (- 2F * plane[2] * plane[1]);
+            reflectionMat.m20 = (-2F * plane[2] * plane[0]);
+            reflectionMat.m21 = (-2F * plane[2] * plane[1]);
             reflectionMat.m22 = (1F - 2F * plane[2] * plane[2]);
-            reflectionMat.m23 = (- 2F * plane[3] * plane[2]);
+            reflectionMat.m23 = (-2F * plane[3] * plane[2]);
 
             reflectionMat.m30 = 0F;
             reflectionMat.m31 = 0F;

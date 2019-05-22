@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// Copyright © 2017 Tobii AB. All rights reserved.
+// Copyright © 2019 Tobii Pro AB. All rights reserved.
 //-----------------------------------------------------------------------
 
 using System.Threading;
@@ -130,7 +130,7 @@ namespace Tobii.Research.Unity
 
         protected override void OnStart()
         {
-            // The eye tracker origin is not exactly in the camera position when using the SteamVR plugin in Unity.
+            // The eye tracker origin is not exactly in the camera position when using Vive in Unity.
             _eyeTrackerOrigin = VRUtility.EyeTrackerOriginVive;
 
             base.OnStart();

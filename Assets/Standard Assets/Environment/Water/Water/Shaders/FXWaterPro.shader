@@ -2,6 +2,8 @@
 
 // Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 
+// Upgrade NOTE: replaced '_Object2World' with '_Object2World'
+
 Shader "FX/Water" {
 Properties {
 	_WaveScale ("Wave scale", Range (0.02,0.15)) = 0.063
