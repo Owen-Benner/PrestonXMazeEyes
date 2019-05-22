@@ -378,8 +378,7 @@ public class Demon : MonoBehaviour
             else if(transform.eulerAngles.y > east)
             {
                 move.rotate.y -= Time.deltaTime * rate;
-                if(transform.eulerAngles.y + move.rotate.y < east &&
-                    transform.eulerAngles.y + move.rotate.y > west)
+                if(transform.eulerAngles.y + move.rotate.y < east)
                 {
                     move.rotate.y = east - transform.eulerAngles.y;
                 }
@@ -399,8 +398,7 @@ public class Demon : MonoBehaviour
             else if(transform.eulerAngles.y < west)
             {
                 move.rotate.y += Time.deltaTime * rate;
-                if(transform.eulerAngles.y + move.rotate.y > west &&
-                    transform.eulerAngles.y + move.rotate.y < east)
+                if(transform.eulerAngles.y + move.rotate.y > west)
                 {
                     move.rotate.y = west - transform.eulerAngles.y;
                 }
