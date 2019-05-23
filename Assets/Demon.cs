@@ -89,7 +89,14 @@ public class Demon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        reader = GameObject.Find("FileReader").GetComponent<FileReader>();
+        try
+        {
+            reader = GameObject.Find("FileReader").GetComponent<FileReader>();
+        }
+        catch
+        {
+            Debug.Log("Start with Gray_Screen.");
+        }
         reader.XMazeInit();
         writer = GameObject.Find("FileWriter").GetComponent<FileWriter>();
         writer.XMazeInit();
