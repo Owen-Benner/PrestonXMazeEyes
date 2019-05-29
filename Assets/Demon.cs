@@ -77,8 +77,7 @@ public class Demon : MonoBehaviour
     public FileReader reader;
 
     public string context0 = "Gray";
-    public string context1 = "Wood";
-    public string context2 = "Brick";
+    public string [] contextList = {"Gray", "Wood", "Brick", "Stone", "Metal"};
 
     private float choiceStart;
     private float selectStart;
@@ -427,17 +426,15 @@ public class Demon : MonoBehaviour
             return;
         }
 
-        if(contexts[trialNum] == 1)
+        try
         {
-            contextN.SendMessage(context1);
-            contextS.SendMessage(context1);
+            contextN.SendMessage(contextList[contexts[trialNum]]);
+            contextS.SendMessage(contextList[contexts[trialNum]]);
         }
-        else if(contexts[trialNum] == 2)
+        catch
         {
-            contextN.SendMessage(context2);
-            contextS.SendMessage(context2);
+            Debug.Log("Context machine broke.");
         }
-        else{Debug.Log("Context machine broke.");}
     }
 
     void ClearContexts()
