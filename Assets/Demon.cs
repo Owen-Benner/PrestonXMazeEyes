@@ -55,7 +55,7 @@ public class Demon : MonoBehaviour
         Selection,
         Reward,
         HoldB,
-        EndRun,
+        EndRun
     };
 
     public segments segment;
@@ -76,8 +76,14 @@ public class Demon : MonoBehaviour
     public FileWriter writer;
     public FileReader reader;
 
-    public string context0 = "Gray";
-    public string [] contextList = {"Gray", "Wood", "Brick", "Stone", "Metal"};
+    public string [] contextList =
+    {
+        "Gray",
+        "Wood",
+        "Brick",
+        "Stone",
+        "Metal"
+    };
 
     private float choiceStart;
     private float selectStart;
@@ -439,8 +445,8 @@ public class Demon : MonoBehaviour
 
     void ClearContexts()
     {
-        contextN.SendMessage(context0);
-        contextS.SendMessage(context0);
+        contextN.SendMessage(contextList[0]);
+        contextS.SendMessage(contextList[0]);
     }
 
 }
