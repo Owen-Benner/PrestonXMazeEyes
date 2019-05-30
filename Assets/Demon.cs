@@ -55,7 +55,7 @@ public class Demon : MonoBehaviour
         Selection,
         Reward,
         HoldB,
-        EndRun,
+        EndRun
     };
 
     public segments segment;
