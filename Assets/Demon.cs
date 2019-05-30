@@ -76,7 +76,14 @@ public class Demon : MonoBehaviour
     public FileWriter writer;
     public FileReader reader;
 
-    public string [] contextList = {"Gray", "Wood", "Brick", "Stone", "Metal"};
+    public string [] contextList =
+    {
+        "Gray",
+        "Wood",
+        "Brick",
+        "Stone",
+        "Metal"
+    };
 
     private float choiceStart;
     private float selectStart;
