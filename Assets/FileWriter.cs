@@ -149,36 +149,36 @@ public class FileWriter : MonoBehaviour
             GazePoint point = gaze.LeftEye.GazePoint;
             if(point.Validity == Validity.Valid)
             {
-                writer.WriteLine(spc + string.Format("{0:N3}", point.PositionOnDisplayArea.X)
+                writer.Write(spc + string.Format("{0:N3}", point.PositionOnDisplayArea.X)
                     + spc + string.Format("{0:N3}", point.PositionOnDisplayArea.Y));
             }
             else
             {
-                writer.WriteLine(spc + "invalid" + spc + "invalid");
+                writer.Write(spc + "invalid" + spc + "invalid");
             }
 
             PupilData pupil = gaze.LeftEye.Pupil;
             if(pupil.Validity == Validity.Valid)
             {
-                writer.WriteLine(spc + string.Format("{0:N3}", pupil.PupilDiameter));
+                writer.Write(spc + string.Format("{0:N3}", pupil.PupilDiameter));
             }
             else
             {
-                writer.WriteLine(spc + "invalid");
+                writer.Write(spc + "invalid");
             }
 
             point = gaze.RightEye.GazePoint;
             if (point.Validity == Validity.Valid)
             {
-                writer.WriteLine(spc + string.Format("{0:N3}", point.PositionOnDisplayArea.X)
+                writer.Write(spc + string.Format("{0:N3}", point.PositionOnDisplayArea.X)
                     + spc + string.Format("{0:N3}", point.PositionOnDisplayArea.Y));
             }
             else
             {
-                writer.WriteLine(spc + "invalid" + spc + "invalid");
+                writer.Write(spc + "invalid" + spc + "invalid");
             }
 
-            pupil = gaze.LeftEye.Pupil;
+            pupil = gaze.RightEye.Pupil;
             if (pupil.Validity == Validity.Valid)
             {
                 writer.WriteLine(spc + string.Format("{0:N3}", pupil.PupilDiameter));
@@ -190,7 +190,7 @@ public class FileWriter : MonoBehaviour
         }
         else
         {
-            writer.WriteLine("Frame "
+            writer.Write("Frame "
                 + frame.ToString() + ":" + spc + string.Format("{0:N3}", 0f) + spc + string.Format("{0:N3}", 0f)
                 + spc + string.Format("{0:N3}", 0f) + spc + string.Format("{0:N3}", Time.time - startTime)
                 + spc + string.Format("{0:N3}", 0f) + spc + string.Format("{0:N3}", 0f));
@@ -199,33 +199,33 @@ public class FileWriter : MonoBehaviour
             GazePoint point = gaze.LeftEye.GazePoint;
             if (point.Validity == Validity.Valid)
             {
-                writer.WriteLine(spc + string.Format("{0:N3}", point.PositionOnDisplayArea.X)
+                writer.Write(spc + string.Format("{0:N3}", point.PositionOnDisplayArea.X)
                     + spc + string.Format("{0:N3}", point.PositionOnDisplayArea.Y));
             }
             else
             {
-                writer.WriteLine(spc + "invalid" + spc + "invalid");
+                writer.Write(spc + "invalid" + spc + "invalid");
             }
 
             PupilData pupil = gaze.LeftEye.Pupil;
             if (pupil.Validity == Validity.Valid)
             {
-                writer.WriteLine(spc + string.Format("{0:N3}", pupil.PupilDiameter));
+                writer.Write(spc + string.Format("{0:N3}", pupil.PupilDiameter));
             }
             else
             {
-                writer.WriteLine(spc + "invalid");
+                writer.Write(spc + "invalid");
             }
 
             point = gaze.RightEye.GazePoint;
             if (point.Validity == Validity.Valid)
             {
-                writer.WriteLine(spc + string.Format("{0:N3}", point.PositionOnDisplayArea.X)
+                writer.Write(spc + string.Format("{0:N3}", point.PositionOnDisplayArea.X)
                     + spc + string.Format("{0:N3}", point.PositionOnDisplayArea.Y));
             }
             else
             {
-                writer.WriteLine(spc + "invalid" + spc + "invalid");
+                writer.Write(spc + "invalid" + spc + "invalid");
             }
 
             pupil = gaze.LeftEye.Pupil;
