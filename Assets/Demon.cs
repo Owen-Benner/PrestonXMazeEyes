@@ -445,8 +445,8 @@ public class Demon : MonoBehaviour
 
     void ClearContexts()
     {
-        contextN.SendMessage(context0);
-        contextS.SendMessage(context0);
+        contextN.SendMessage(contextList[0]);
+        contextS.SendMessage(contextList[0]);
     }
 
 }
