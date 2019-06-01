@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1840436195}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571343, b: 0.30692208, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028353, g: 0.2257137, b: 0.30692255, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -308,6 +308,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wood: {fileID: 2100000, guid: 891b4b272daf90c42aa59167679e8302, type: 2}
   brick: {fileID: 2100000, guid: 6ad57b487fa8c7a49a7623aaa645afdf, type: 2}
+  stone: {fileID: 2100000, guid: 94b5bd0fd995a400ab169c2dd2d63945, type: 2}
+  metal: {fileID: 2100000, guid: 37e9a1deb1d1040729fe44861dccc5f3, type: 2}
   gray: {fileID: 2100000, guid: 2230e2e1665b6ff06a4c2b1c67792301, type: 2}
 --- !u!1 &375235911 stripped
 GameObject:
@@ -1267,6 +1269,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wood: {fileID: 2100000, guid: 891b4b272daf90c42aa59167679e8302, type: 2}
   brick: {fileID: 2100000, guid: 6ad57b487fa8c7a49a7623aaa645afdf, type: 2}
+  stone: {fileID: 2100000, guid: 94b5bd0fd995a400ab169c2dd2d63945, type: 2}
+  metal: {fileID: 2100000, guid: 37e9a1deb1d1040729fe44861dccc5f3, type: 2}
   gray: {fileID: 2100000, guid: 2230e2e1665b6ff06a4c2b1c67792301, type: 2}
 --- !u!1001 &1145379473
 PrefabInstance:
@@ -1414,8 +1418,12 @@ MonoBehaviour:
   writer: {fileID: 0}
   reader: {fileID: 0}
   context0: Gray
-  context1: Wood
-  context2: Brick
+  contextList:
+  - Gray
+  - Wood
+  - Brick
+  - Stone
+  - Metal
 --- !u!1 &1809029950
 GameObject:
   m_ObjectHideFlags: 0
