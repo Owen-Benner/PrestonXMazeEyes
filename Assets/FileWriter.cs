@@ -45,11 +45,63 @@ public class FileWriter : MonoBehaviour
 
     private static GazeDataEventArgs gaze;
 
+    private void WriteGaze()
+    {
+        GazePoint point = gaze.LeftEye.GazePoint;
+        if(point.Validity == Validity.Valid)
+        {
+            writer.Write(spc + string.Format("{0:N3}", point.PositionOnDisplayArea.X)
+                + spc + string.Format("{0:N3}", point.PositionOnDisplayArea.Y));
+        }
+        else
+        {
+            writer.Write(spc + "invalid" + spc + "invalid");
+        }
+
+        PupilData pupil = gaze.LeftEye.Pupil;
+        if(pupil.Validity == Validity.Valid)
+        {
+            writer.Write(spc + string.Format("{0:N3}", pupil.PupilDiameter));
+        }
+        else
+        {
+            writer.Write(spc + "invalid");
+        }
+
+        point = gaze.RightEye.GazePoint;
+        if (point.Validity == Validity.Valid)
+        {
+            writer.Write(spc + string.Format("{0:N3}", point.PositionOnDisplayArea.X)
+                + spc + string.Format("{0:N3}", point.PositionOnDisplayArea.Y));
+        }
+        else
+        {
+            writer.Write(spc + "invalid" + spc + "invalid");
+        }
+
+        pupil = gaze.RightEye.Pupil;
+        if (pupil.Validity == Validity.Valid)
+        {
+            writer.WriteLine(spc + string.Format("{0:N3}", pupil.PupilDiameter));
+        }
+        else
+        {
+            writer.WriteLine(spc + "invalid");
+        }
+    }
+
     // Start is called before the first frame update
     private void Start()
     {
-        eyeTracker = EyeTrackingOperations.FindAllEyeTrackers()[0];
-        eyeTracker.GazeDataReceived += EyeTracker_GazeDataReceived;
+        try
+        {
+            eyeTracker = EyeTrackingOperations.FindAllEyeTrackers()[0];
+            eyeTracker.GazeDataReceived += EyeTracker_GazeDataReceived;
+        }
+        catch
+        {
+            Debug.LogError("Eye tracker not found!");
+        }
 
         fileName = partCode + "_";
         if (mode == 1)
@@ -123,7 +175,6 @@ public class FileWriter : MonoBehaviour
 
     void WriteFrame()
     {
-
         if(XMazeLoaded)
         {
             float distHori;
@@ -146,46 +197,13 @@ public class FileWriter : MonoBehaviour
                 + spc + string.Format("{0:N3}", playPos.position.x) + spc + string.Format("{0:N3}", playPos.position.z));
 
             // Add gaze data here
-            GazePoint point = gaze.LeftEye.GazePoint;
-            if(point.Validity == Validity.Valid)
+            try
             {
-                writer.Write(spc + string.Format("{0:N3}", point.PositionOnDisplayArea.X)
-                    + spc + string.Format("{0:N3}", point.PositionOnDisplayArea.Y));
+                WriteGaze();
             }
-            else
+            catch
             {
-                writer.Write(spc + "invalid" + spc + "invalid");
-            }
-
-            PupilData pupil = gaze.LeftEye.Pupil;
-            if(pupil.Validity == Validity.Valid)
-            {
-                writer.Write(spc + string.Format("{0:N3}", pupil.PupilDiameter));
-            }
-            else
-            {
-                writer.Write(spc + "invalid");
-            }
-
-            point = gaze.RightEye.GazePoint;
-            if (point.Validity == Validity.Valid)
-            {
-                writer.Write(spc + string.Format("{0:N3}", point.PositionOnDisplayArea.X)
-                    + spc + string.Format("{0:N3}", point.PositionOnDisplayArea.Y));
-            }
-            else
-            {
-                writer.Write(spc + "invalid" + spc + "invalid");
-            }
-
-            pupil = gaze.RightEye.Pupil;
-            if (pupil.Validity == Validity.Valid)
-            {
-                writer.WriteLine(spc + string.Format("{0:N3}", pupil.PupilDiameter));
-            }
-            else
-            {
-                writer.WriteLine(spc + "invalid");
+                writer.WriteLine(spc + "Error");
             }
         }
         else
@@ -196,46 +214,13 @@ public class FileWriter : MonoBehaviour
                 + spc + string.Format("{0:N3}", 0f) + spc + string.Format("{0:N3}", 0f));
 
             // Add gaze data here
-            GazePoint point = gaze.LeftEye.GazePoint;
-            if (point.Validity == Validity.Valid)
+            try
             {
-                writer.Write(spc + string.Format("{0:N3}", point.PositionOnDisplayArea.X)
-                    + spc + string.Format("{0:N3}", point.PositionOnDisplayArea.Y));
+                WriteGaze();
             }
-            else
+            catch
             {
-                writer.Write(spc + "invalid" + spc + "invalid");
-            }
-
-            PupilData pupil = gaze.LeftEye.Pupil;
-            if (pupil.Validity == Validity.Valid)
-            {
-                writer.Write(spc + string.Format("{0:N3}", pupil.PupilDiameter));
-            }
-            else
-            {
-                writer.Write(spc + "invalid");
-            }
-
-            point = gaze.RightEye.GazePoint;
-            if (point.Validity == Validity.Valid)
-            {
-                writer.Write(spc + string.Format("{0:N3}", point.PositionOnDisplayArea.X)
-                    + spc + string.Format("{0:N3}", point.PositionOnDisplayArea.Y));
-            }
-            else
-            {
-                writer.Write(spc + "invalid" + spc + "invalid");
-            }
-
-            pupil = gaze.LeftEye.Pupil;
-            if (pupil.Validity == Validity.Valid)
-            {
-                writer.WriteLine(spc + string.Format("{0:N3}", pupil.PupilDiameter));
-            }
-            else
-            {
-                writer.WriteLine(spc + "invalid");
+                writer.WriteLine("Error writing gaze data!");
             }
         }
 
@@ -279,8 +264,13 @@ public class FileWriter : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        eyeTracker.GazeDataReceived -= EyeTracker_GazeDataReceived;
-        EyeTrackingOperations.Terminate();
+        try
+        {
+            Debug.Log("Terminating eye tracker operation.");
+            eyeTracker.GazeDataReceived -= EyeTracker_GazeDataReceived;
+            EyeTrackingOperations.Terminate();
+        }
+        catch{}
     }
 
 }

@@ -107,6 +107,7 @@ public class Demon : MonoBehaviour
         writer.XMazeInit();
 
         segment = segments.Hallway;
+        writer.WriteSegment();
         move = GetComponent<SimpleMovement>();
         rewardText.enabled = false;
         scoreText.text = 0.ToString();
@@ -176,7 +177,10 @@ public class Demon : MonoBehaviour
                         goalNW.SendMessage("Render", rightObjects[trialNum]);
                     }
                 }
-                else{Debug.Log("Direction machine broke.");}
+                else
+                {
+                    Debug.Log("Direction machine broke.");
+                }
             }
         }
         
@@ -263,29 +267,30 @@ public class Demon : MonoBehaviour
                 try
                 {
                     trialNum++;
-                    SetContexts();
-                    //Debug.Log("Contexts set");
                     move.EndHold();
                     segment = segments.Hallway;
+                    SetContexts();
+                    //Debug.Log("Contexts set.");
                     writer.WriteSegment();
                 }
                 catch
                 {
-                    //Debug.Log("Caught");
+                    //Debug.Log("Caught.");
                     segment = segments.EndRun;
-                    writer.WriteSegment();
+                    move.BeginHold(999f);
                 }
             }
         }
 
         else if(segment == segments.EndRun)
         {
-            if(endTimer <= 0)
+            if(endTimer <= 0f)
             {
+                Debug.Log("Quitting.");
                 Application.Quit();
             }
             endTimer -= Time.deltaTime;
-            //Debug.Log("Quitting in: " + endTimer.ToString());
+            Debug.Log("Quitting in: " + endTimer.ToString() + ".");
         }
     }
 
@@ -440,6 +445,8 @@ public class Demon : MonoBehaviour
         catch
         {
             Debug.Log("Context machine broke.");
+            segment = segments.EndRun;
+            move.BeginHold(999f);
         }
     }
 
