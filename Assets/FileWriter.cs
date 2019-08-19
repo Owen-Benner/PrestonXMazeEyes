@@ -133,8 +133,6 @@ public class FileWriter : MonoBehaviour
         writer.WriteLine(format2);
 
         DontDestroyOnLoad(gameObject);
-
-        lastFrame = Time.time;
     }
 
     private void EyeTracker_GazeDataReceived(object sender, GazeDataEventArgs e)
@@ -149,15 +147,18 @@ public class FileWriter : MonoBehaviour
         demon = player.GetComponent<Demon>();
 
         XMazeLoaded = true;
-
-        //WriteFrame();
         trialStart = Time.time;
+
+        Debug.Log(Time.time - startTime);
     }
 
     public void StartWriting()
     {
         startTime = Time.time;
         write = true;
+        WriteFrame();
+        lastFrame = Time.time;
+        Debug.Log("Writing!");
     }
 
     // Update is called once per frame
@@ -175,6 +176,11 @@ public class FileWriter : MonoBehaviour
 
     void WriteFrame()
     {
+        if(!write)
+        {
+            return;
+        }
+
         if(XMazeLoaded)
         {
             float distHori;

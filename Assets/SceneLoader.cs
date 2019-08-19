@@ -9,6 +9,7 @@ public class SceneLoader : MonoBehaviour
     private AsyncOperation async;
     private bool counting = false;
     public float countDown = 4f;
+    public float countDownStart;
 
     private FileWriter writer;
 
@@ -26,17 +27,17 @@ public class SceneLoader : MonoBehaviour
     {
         if(counting)
         {
-            countDown -= Time.deltaTime;
-            if(countDown <= 0)
+            if(Time.time - countDownStart >= countDown)
             {
                 async.allowSceneActivation = true;
             }
         }
 
-        if(Input.GetKey("5"))
+        if(Input.GetKey("5") && !counting)
         {
             counting = true;
             writer.StartWriting();
+            countDownStart = Time.time;
         }
     }
 
