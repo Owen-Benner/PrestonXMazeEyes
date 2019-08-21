@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Gray_Screen.unity
+    path: Assets/XMaze_Assets/Gray_Screen.unity
     guid: 7acc4f5c0fdbf3058b2f0686d0a0ac1a
   - enabled: 1
-    path: Assets/XMaze.unity
+    path: Assets/XMaze_Assets/XMaze.unity
     guid: e16815f3e1fd73f379842306f0fff40c
   m_configObjects: {}
