@@ -144,6 +144,7 @@ public class FileWriter : MonoBehaviour
     private void EyeTracker_GazeDataReceived(object sender, GazeDataEventArgs e)
     {
         gaze = e;
+        Debug.Log("Recieved gaze data.");
     }
 
     public void XMazeInit()
