@@ -16,10 +16,11 @@ public class FileWriter : MonoBehaviour
 
     public int frameFreq = 10;
 
-    public string format0 = "%Frame frameNum: distHoriz distDiag pose time xPos zPos"
-        + " leftEyeX leftEyeY leftPupil rightEyeX rightEyeY rightPupil";
+    public string format0 = "%Frame frameNum: distHoriz distDiag pose time xPos"
+        + " zPos leftEyeX leftEyeY leftPupil rightEyeX rightEyeY rightPupil";
     public string format1 = "%Selection trialNum: chamber reward score";
-    public string format2 = "%Segment: distHoriz distDiag pose time xPos zPos trialNum trialTime newSegment";
+    public string format2 = "%Segment: distHoriz distDiag pose time xPos zPos"
+        + " trialNum trialTime newSegment";
     public string partCode;
 
     private string fileName;
@@ -50,8 +51,9 @@ public class FileWriter : MonoBehaviour
         GazePoint point = gaze.LeftEye.GazePoint;
         if(point.Validity == Validity.Valid)
         {
-            writer.Write(spc + string.Format("{0:N3}", point.PositionOnDisplayArea.X)
-                + spc + string.Format("{0:N3}", point.PositionOnDisplayArea.Y));
+            writer.Write(spc + string.Format("{0:N3}",
+                + point.PositionOnDisplayArea.X) + spc + string.Format("{0:N3}",
+                point.PositionOnDisplayArea.Y));
         }
         else
         {
@@ -71,8 +73,9 @@ public class FileWriter : MonoBehaviour
         point = gaze.RightEye.GazePoint;
         if (point.Validity == Validity.Valid)
         {
-            writer.Write(spc + string.Format("{0:N3}", point.PositionOnDisplayArea.X)
-                + spc + string.Format("{0:N3}", point.PositionOnDisplayArea.Y));
+            writer.Write(spc + string.Format("{0:N3}",
+                + point.PositionOnDisplayArea.X) + spc + string.Format("{0:N3}",
+                point.PositionOnDisplayArea.Y));
         }
         else
         {
@@ -82,7 +85,8 @@ public class FileWriter : MonoBehaviour
         pupil = gaze.RightEye.Pupil;
         if (pupil.Validity == Validity.Valid)
         {
-            writer.WriteLine(spc + string.Format("{0:N3}", pupil.PupilDiameter));
+            writer.WriteLine(spc + string.Format("{0:N3}",
+                pupil.PupilDiameter));
         }
         else
         {
@@ -117,7 +121,8 @@ public class FileWriter : MonoBehaviour
         try
         {
             lastRunReader = new StreamReader(fileName);
-            Debug.LogError("Repeated log filename! Update Config.txt or remove last log file from directory.");
+            Debug.LogError("Repeated log filename! Update Config.txt or remove"
+                + " last log file from directory.");
             Application.Quit();
             return;
         }
@@ -126,7 +131,8 @@ public class FileWriter : MonoBehaviour
         writer = new StreamWriter(fileName);
         framePer = 1f / (float)frameFreq;
 
-        writer.WriteLine(partCode + spc + mode + spc + runNum + spc + direction);
+        writer.WriteLine(partCode + spc + mode + spc + runNum + spc
+            + direction);
 
         writer.WriteLine(format0);
         writer.WriteLine(format1);
@@ -189,18 +195,23 @@ public class FileWriter : MonoBehaviour
             if (demon.direction == 1)
             {
                 distHori = Mathf.Abs(playPos.position.x - demon.eastXPos);
-                distDiag = Mathf.Sqrt(distHori * distHori + Mathf.Pow(playPos.position.z - demon.zPos, 2f));
+                distDiag = Mathf.Sqrt(distHori * distHori 
+                    + Mathf.Pow(playPos.position.z - demon.zPos, 2f));
             }
             else
             {
                 distHori = Mathf.Abs(playPos.position.x - demon.westXPos);
-                distDiag = Mathf.Sqrt(distHori * distHori + Mathf.Pow(playPos.position.z - demon.zPos, 2f));
+                distDiag = Mathf.Sqrt(distHori * distHori
+                    + Mathf.Pow(playPos.position.z - demon.zPos, 2f));
             }
 
             writer.Write("Frame "
-                + frame.ToString() + ":" + spc + string.Format("{0:N3}", distHori) + spc + string.Format("{0:N3}", distDiag)
-                + spc + string.Format("{0:N3}", playPos.eulerAngles.y) + spc + string.Format("{0:N3}", Time.time - startTime)
-                + spc + string.Format("{0:N3}", playPos.position.x) + spc + string.Format("{0:N3}", playPos.position.z));
+                + frame.ToString() + ":" + spc + string.Format("{0:N3}",
+                distHori) + spc + string.Format("{0:N3}", distDiag) + spc
+                + string.Format("{0:N3}", playPos.eulerAngles.y) + spc
+                + string.Format("{0:N3}", Time.time - startTime) + spc
+                + string.Format("{0:N3}", playPos.position.x) + spc
+                + string.Format("{0:N3}", playPos.position.z));
 
             // Add gaze data here
             try
@@ -215,9 +226,11 @@ public class FileWriter : MonoBehaviour
         else
         {
             writer.Write("Frame "
-                + frame.ToString() + ":" + spc + string.Format("{0:N3}", 0f) + spc + string.Format("{0:N3}", 0f)
-                + spc + string.Format("{0:N3}", 0f) + spc + string.Format("{0:N3}", Time.time - startTime)
-                + spc + string.Format("{0:N3}", 0f) + spc + string.Format("{0:N3}", 0f));
+                + frame.ToString() + ":" + spc + string.Format("{0:N3}", 0f)
+                + spc + string.Format("{0:N3}", 0f) + spc
+                + string.Format("{0:N3}", 0f) + spc + string.Format("{0:N3}",
+                Time.time - startTime) + spc + string.Format("{0:N3}", 0f)
+                + spc + string.Format("{0:N3}", 0f));
 
             // Add gaze data here
             try
@@ -241,12 +254,14 @@ public class FileWriter : MonoBehaviour
         if(demon.direction == 1)
         {
             distHori = Mathf.Abs(playPos.position.x - demon.eastXPos);
-            distDiag = Mathf.Sqrt(distHori * distHori + Mathf.Pow(playPos.position.z - demon.zPos, 2f));
+            distDiag = Mathf.Sqrt(distHori * distHori
+                + Mathf.Pow(playPos.position.z - demon.zPos, 2f));
         }
         else
         {
             distHori = Mathf.Abs(playPos.position.x - demon.westXPos);
-            distDiag = Mathf.Sqrt(distHori * distHori + Mathf.Pow(playPos.position.z - demon.zPos, 2f));
+            distDiag = Mathf.Sqrt(distHori * distHori
+                + Mathf.Pow(playPos.position.z - demon.zPos, 2f));
         }
 
         if(demon.segment == Demon.segments.Hallway)
@@ -256,16 +271,21 @@ public class FileWriter : MonoBehaviour
 
         float trialTime = Time.time - trialStart;
 
-        writer.WriteLine("Segment:" + spc + string.Format("{0:N3}", distHori) + spc + string.Format("{0:N3}", distDiag)
-            + spc + string.Format("{0:N3}", playPos.eulerAngles.y) + spc + string.Format("{0:N3}", Time.time - startTime)
-            + spc + string.Format("{0:N3}", playPos.position.x) + spc + string.Format("{0:N3}", playPos.position.z)
-            + spc + string.Format("{0:N3}", trialTime) + spc + demon.trialNum.ToString() + spc + demon.segment.ToString());
+        writer.WriteLine("Segment:" + spc + string.Format("{0:N3}", distHori)
+            + spc + string.Format("{0:N3}", distDiag) + spc
+            + string.Format("{0:N3}", playPos.eulerAngles.y) + spc
+            + string.Format("{0:N3}", Time.time - startTime) + spc
+            + string.Format("{0:N3}", playPos.position.x) + spc
+            + string.Format("{0:N3}", playPos.position.z) + spc
+            + string.Format("{0:N3}", trialTime) + spc
+            + demon.trialNum.ToString() + spc + demon.segment.ToString());
     }
 
     public void WriteSelect(int select, int reward, int score)
     {
-        writer.WriteLine("Selection " + demon.trialNum.ToString() + ":" + spc + select.ToString()
-            + spc + reward.ToString() + spc + score.ToString());
+        writer.WriteLine("Selection " + demon.trialNum.ToString() + ":" + spc
+            + select.ToString() + spc + reward.ToString() + spc
+            + score.ToString());
     }
 
     private void OnApplicationQuit()
