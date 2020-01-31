@@ -240,7 +240,7 @@ public class FileWriter : MonoBehaviour
             }
             catch
             {
-                writer.WriteLine("Error writing gaze data!");
+                writer.WriteLine(spc + "Error writing gaze data!");
             }
         }
 
