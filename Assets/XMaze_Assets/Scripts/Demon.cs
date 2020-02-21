@@ -73,6 +73,9 @@ public class Demon : MonoBehaviour
     public GameObject goalSW;
     public GameObject goalNW;
 
+    public GameObject gateE;
+    public GameObject gateW;
+
     public FileWriter writer;
     public FileReader reader;
 
@@ -150,6 +153,8 @@ public class Demon : MonoBehaviour
             if(!move.IsHolding())
             {
                 segment = segments.Selection;
+                gateE.SetActive(true);
+                gateW.SetActive(true);
                 selectStart = Time.time;
                 writer.WriteSegment();
                 vis = true;
@@ -348,6 +353,8 @@ public class Demon : MonoBehaviour
             }
 
             segment = segments.Reward;
+            gateE.SetActive(false);
+            gateW.SetActive(false);
             writer.WriteSegment();
             rewardText.text = preRew + reward.ToString();
             rewardText.enabled = true;
